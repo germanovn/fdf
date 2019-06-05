@@ -30,10 +30,9 @@ class Club extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'city_id', 'name', 'slug'], 'required'],
-            [['id', 'city_id'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 50],
-            [['id'], 'unique'],
+            [['name', 'city_id'], 'required'],
+            [['name'], 'string', 'max' => 50],
+            [['city_id'], 'integer'],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
         ];
     }
@@ -44,10 +43,10 @@ class Club extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'city_id' => 'City ID',
-            'name' => 'Name',
-            'slug' => 'Slug',
+            'id' => Yii::t('app', 'ID'),
+            'city_id' => Yii::t('app', 'City ID'),
+            'name' => Yii::t('app', 'Name'),
+            'slug' => Yii::t('app', 'Slug'),
         ];
     }
 
@@ -57,5 +56,21 @@ class Club extends \yii\db\ActiveRecord
     public function getCity()
     {
         return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+
+    /**
+     * Slug
+     * @link https://github.com/zelenin/yii2-slug-behavior
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+            ]
+        ];
     }
 }
