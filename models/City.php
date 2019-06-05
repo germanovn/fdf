@@ -29,8 +29,8 @@ class City extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug'], 'required'],
-            [['name', 'slug'], 'string', 'max' => 50],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 50],
         ];
     }
 
@@ -52,5 +52,28 @@ class City extends \yii\db\ActiveRecord
     public function getClubs()
     {
         return $this->hasMany(Club::className(), ['city_id' => 'id']);
+    }
+
+    /**
+     * Slug
+     * @link https://github.com/zelenin/yii2-slug-behavior
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+                // optional params
+//                'ensureUnique' => true,
+//                'replacement' => '-',
+//                'lowercase' => true,
+//                'immutable' => false,
+//                // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
+//                'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+            ]
+        ];
     }
 }
