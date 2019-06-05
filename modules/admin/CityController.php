@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\modules\admin;
 
 use Yii;
 use app\models\City;
