@@ -53,7 +53,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => 'admin'
+                '/' => 'admin/main',
+                '<action:(city|club)>' => 'admin/<action>'
             ],
         ],
     ],
