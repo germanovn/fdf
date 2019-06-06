@@ -1,9 +1,25 @@
 <?php
+use yii\helpers\Html;
+use yii\grid\GridView;
+
 /* @var $this yii\web\View */
 ?>
-<h1>main/index</h1>
+<h1>Панель администратора</h1>
 
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
+<?= GridView::widget([
+    'dataProvider' => $dataProviderCity,
+    'filterModel' => $searchModelCity,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+        'name',
+    ],
+]); ?>
+
+<?= GridView::widget([
+    'dataProvider' => $dataProviderClub,
+    'filterModel' => $searchModelClub,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+        'name',
+    ],
+]); ?>
