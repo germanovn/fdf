@@ -4,8 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Club;
-use app\models\City;
-use yii\data\ActiveDataProvider;
+use app\models\ClubSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,11 +35,11 @@ class ClubController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Club::find(),
-        ]);
+        $searchModel = new ClubSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -124,17 +123,5 @@ class ClubController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllCityArray()
-    {
-        $city = City::find()->asArray()->indexBy('id')->all();
-        foreach( $city as $city_item ) $city_arr[$city_item['id']] = $city_item['name'];
-
-        if( is_array($city_arr) ) return $city_arr;
-        else [];
     }
 }
