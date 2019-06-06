@@ -17,8 +17,8 @@ class m190606_045012_create_club_table extends Migration
     {
         $this->createTable('{{%club}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(),
-            'slug' => $this->string(),
+            'name' => $this->string()->notNull()->unique(),
+            'slug' => $this->string()->notNull()->unique(),
             'city_id' => $this->integer()->notNull(),
         ]);
 
