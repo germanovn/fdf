@@ -40,7 +40,6 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'City', 'url' => ['/admin/city']],
             ['label' => 'Club', 'url' => ['/admin/club']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -69,9 +68,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; No-Name <?= date('Y') ?></p>
+        <p class="pull-right"><?//= Yii::powered() ?></p>
     </div>
 </footer>
 
