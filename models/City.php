@@ -30,7 +30,9 @@ class City extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 50],
+            [['name', 'slug'], 'string', 'max' => 255],
+            [['name'], 'unique'],
+            [['slug'], 'unique'],
         ];
     }
 
@@ -40,9 +42,9 @@ class City extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'slug' => 'Slug',
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'slug' => Yii::t('app', 'Slug'),
         ];
     }
 
