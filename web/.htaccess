@@ -1,5 +1,5 @@
 Order Allow,Deny
-Allow from 85.12.196.89
+Allow from 85.12.196.89 127.0.0.1
 
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
