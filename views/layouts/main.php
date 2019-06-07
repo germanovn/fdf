@@ -69,7 +69,7 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; No-Name <?= date('Y') ?></p>
-        <p class="pull-right"><?//= Yii::powered() ?></p>
+        <p class="pull-right">Created by <?= Html::a('Nick', '//NikitaGermanov.ru'); ?></p>
     </div>
 </footer>
 
