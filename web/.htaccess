@@ -1,3 +1,6 @@
+Order Allow,Deny
+Allow from 85.12.196.89
+
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
