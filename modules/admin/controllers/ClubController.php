@@ -140,7 +140,7 @@ class ClubController extends Controller
         $city = City::find()->asArray()->indexBy('id')->all();
         foreach( $city as $city_item ) $city_arr[$city_item['id']] = $city_item['name'];
 
-        if( is_array($city_arr) && !empty($city_arr) ) return $city_arr;
+        if( !empty($city_arr) && is_array($city_arr) ) return $city_arr;
         else return [];
     }
 }
