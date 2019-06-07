@@ -11,6 +11,8 @@ use yii\widgets\ActiveForm;
 
 <div class="club-form">
 
+    <?php if( !empty( $dropDownListCity ) && is_array( $dropDownListCity ) ) { ?>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'city_id')->dropDownList( $dropDownListCity ) ?>
@@ -23,4 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+    <?php }
+    else { ?>
+        <?= Yii::t( 'app', 'Add at least one city' ); ?>
+    <?php } ?>
 </div>
