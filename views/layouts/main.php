@@ -38,8 +38,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'City', 'url' => ['/admin/city']],
-            ['label' => 'Club', 'url' => ['/admin/club']],
+            ['label' => Yii::t( 'app', 'City' ), 'url' => ['/admin/city']],
+            ['label' => Yii::t( 'app', 'Club' ), 'url' => ['/admin/club']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
