@@ -4,7 +4,7 @@ use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 ?>
-<h1>Панель администратора</h1>
+<h1><?= Yii::t( 'app', 'Admin panel' ); ?></h1>
 
 <?= GridView::widget([
     'dataProvider' => $dataProviderCity,
@@ -23,3 +23,5 @@ use yii\grid\GridView;
         'name',
     ],
 ]); ?>
+
+
