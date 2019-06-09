@@ -56,7 +56,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'admin/main',
-                '<action:(city|club)>' => 'admin/<action>'
+                '<action:.+>' => 'admin/<action>'
             ],
         ],
         'i18n' => [
