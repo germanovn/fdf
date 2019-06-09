@@ -8,6 +8,7 @@
 return [
     // Core
     'FDF Assistant' => 'ФДФ Ассистент',
+    'Update' => 'Редактировать',
     // DB ladels
     'ID' => 'ID',
     'Name' => 'Название',
@@ -22,4 +23,6 @@ return [
     'City' => 'Город',
     'Cities' => 'Города',
     'Create City' => 'Добавить город',
+    // app/modules/admin/gender
+    'Update Gender: {name}' => 'Редактировать пол: {name}',
 ];
