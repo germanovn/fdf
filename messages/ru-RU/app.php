@@ -10,6 +10,8 @@ return [
     // Core
     'FDF Assistant' => 'ФДФ Ассистент',
     'Update' => 'Редактировать',
+    'Save' => 'Сохранить',
+    'Delete' => 'Удалить',
 
     // DB ladels
     'ID' => 'ID',
