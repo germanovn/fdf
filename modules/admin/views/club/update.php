@@ -4,7 +4,6 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Club */
-/* @var $dropDownListCity app\modules\admin\controllers\ClubController::getAllCityArray */
 
 $this->title = Yii::t('app', 'Update Club: {name}', [
     'name' => $model->name,
@@ -19,7 +18,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'dropDownListCity' => $dropDownListCity,
     ]) ?>
 
 </div>

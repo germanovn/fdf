@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\City;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Club */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $dropDownListCity app\modules\admin\controllers\ClubController::getAllCityArray */
+
+$dropDownListCity = City::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column();
 ?>
 
 <div class="club-form">
