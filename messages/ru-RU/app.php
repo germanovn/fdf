@@ -24,6 +24,7 @@ return [
     'Clubs' => 'Клубы',
     'Create Club' => 'Добавить клуб',
     'Update Club: {name}' => 'Редактировать клуб: {name}',
+    'Add at least one city' => 'Добавьте хотя бы один город',
 
     // app/modules/admin/city
     'City' => 'Город',
