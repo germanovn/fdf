@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\QualifyingScheme;
+use app\models\Gender;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\NominationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,17 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'slug',
-            'qualifying_scheme_id',
+            [
+                'attribute' => 'qualifying_scheme_id',
+                'filter' => QualifyingScheme::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'value' => 'qualifyingScheme.name',
+            ],
             'encounter_amount',
-            //'participant_amount',
-            //'qualifying_rounds_amount',
-            //'final_rounds_amount',
-            //'gender_restriction',
-            //'age_of',
-            //'age_up_to',
+            'participant_amount',
+            'qualifying_rounds_amount',
+            'final_rounds_amount',
+            [
+                'attribute' => 'gender_restriction',
+                'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'value' => 'genderRestriction.name',
+            ],
+            'age_of',
+            'age_up_to',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

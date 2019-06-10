@@ -3,6 +3,10 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Gender;
+use app\models\Echelon;
+use app\models\Club;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ParticipantSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,11 +31,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'surname',
             'first_name',
             'middle_name',
-            'gender_id',
+            [
+                'attribute' => 'gender_id',
+                'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'value' => 'gender.name',
+            ],
+            [
+                'attribute' => 'club_id',
+                'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'value' => 'club.name',
+            ],
+            [
+                'attribute' => 'echelon_id',
+                'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'value' => 'echelon.name',
+            ],
+
             //'club_id',
             //'date_of_birth',
             //'echelon_id',

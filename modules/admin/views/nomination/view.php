@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Nomination */
@@ -32,12 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'slug',
-            'qualifying_scheme_id',
+            [
+                'attribute' => 'qualifying_scheme_id',
+                'value' => ArrayHelper::getValue( $model, 'qualifyingScheme.name' ),
+            ],
             'encounter_amount',
             'participant_amount',
             'qualifying_rounds_amount',
             'final_rounds_amount',
-            'gender_restriction',
+            [
+                'attribute' => 'gender_restriction',
+                'value' => ArrayHelper::getValue( $model, 'genderRestriction.name' ),
+            ],
             'age_of',
             'age_up_to',
         ],
