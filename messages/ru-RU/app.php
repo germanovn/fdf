@@ -19,10 +19,14 @@ return [
     'Club' => 'Клуб',
     'Clubs' => 'Клубы',
     'Create Club' => 'Добавить клуб',
+    'Update Club: {name}' => 'Редактировать клуб: {name}',
     // app/modules/admin/city
     'City' => 'Город',
     'Cities' => 'Города',
     'Create City' => 'Добавить город',
     // app/modules/admin/gender
+    'Gender' => 'Пол',
+    'Genders' => 'Пол',
+    'Create Gender' => 'Добавить пол',
     'Update Gender: {name}' => 'Редактировать пол: {name}',
 ];
