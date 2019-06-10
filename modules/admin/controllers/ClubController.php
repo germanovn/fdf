@@ -4,7 +4,6 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Club;
-use app\models\City;
 use app\models\ClubSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
