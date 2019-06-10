@@ -43,8 +43,8 @@ AppAsset::register($this);
             ['label' => Yii::t( 'app', 'Gender' ),            'url' => ['/admin/gender']],
             ['label' => Yii::t( 'app', 'Echelon' ),           'url' => ['/admin/echelon']],
             ['label' => Yii::t( 'app', 'Participant' ),       'url' => ['/admin/participant']],
-            ['label' => Yii::t( 'app', 'Warnings' ),          'url' => ['/admin/warnings']],
-            ['label' => Yii::t( 'app', 'Qualifying_scheme' ), 'url' => ['/admin/qualifying_scheme']],
+//            ['label' => Yii::t( 'app', 'Warnings' ),          'url' => ['/admin/warnings']],
+            ['label' => Yii::t( 'app', 'Qualifying Scheme' ), 'url' => ['/admin/qualifying-scheme']],
             ['label' => Yii::t( 'app', 'Nomination' ),        'url' => ['/admin/nomination']],
             ['label' => Yii::t( 'app', 'Tournament' ),        'url' => ['/admin/tournament']],
 
