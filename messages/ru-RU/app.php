@@ -29,6 +29,7 @@ return [
     'City' => 'Город',
     'Cities' => 'Города',
     'Create City' => 'Добавить город',
+    'Update City: {name}' => 'Редактировать город: {name}',
 
     // app/modules/admin/gender
     'Gender' => 'Пол',
