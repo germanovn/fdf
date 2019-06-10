@@ -31,4 +31,5 @@ $dropDownListCity = City::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->c
     else { ?>
         <?= Yii::t( 'app', 'Add at least one city' ); ?>
     <?php } ?>
+
 </div>
