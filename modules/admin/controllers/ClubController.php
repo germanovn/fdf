@@ -4,7 +4,6 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Club;
-use app\models\City;
 use app\models\ClubSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -71,11 +70,8 @@ class ClubController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $dropDownListCity = self::getAllCityArray();
-
         return $this->render('create', [
             'model' => $model,
-            'dropDownListCity' => $dropDownListCity,
         ]);
     }
 
@@ -94,11 +90,8 @@ class ClubController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $dropDownListCity = self::getAllCityArray();
-
         return $this->render('update', [
             'model' => $model,
-            'dropDownListCity' => $dropDownListCity,
         ]);
     }
 
@@ -130,17 +123,5 @@ class ClubController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllCityArray()
-    {
-        $city = City::find()->asArray()->indexBy('id')->all();
-        foreach( $city as $city_item ) $city_arr[$city_item['id']] = $city_item['name'];
-
-        if( !empty($city_arr) && is_array($city_arr) ) return $city_arr;
-        else return [];
     }
 }
