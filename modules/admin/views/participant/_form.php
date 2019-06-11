@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\Gender;
 use app\models\Club;
 use app\models\Echelon;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Participant */
@@ -29,7 +30,14 @@ $dropDownListEchelon = Echelon::find()->select( [ 'name', 'id' ] )->indexBy( 'id
 
     <?= $form->field($model, 'club_id')->dropDownList( $dropDownListClub ) ?>
 
-    <?= $form->field($model, 'date_of_birth')->textInput( [ 'type' => 'date' ] ) ?>
+    <?= $form->field($model, 'date_of_birth')->widget( 'kartik\date\DatePicker', [
+        'name' => 'date_of_birth',
+        'options' => [ 'value' => date('Y-m-d', strtotime('-25 year')) ],
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ] ) ?>
 
     <?= $form->field($model, 'echelon_id')->dropDownList( $dropDownListEchelon ) ?>
 
