@@ -4,6 +4,9 @@ use yii\db\Migration;
 
 /**
  * Handles the creation of table `{{%tournament}}`.
+ * Has foreign keys to the tables:
+ *
+ * - `{{%nomination}}`
  */
 class m190608_211319_create_tournament_table extends Migration
 {
@@ -18,6 +21,23 @@ class m190608_211319_create_tournament_table extends Migration
             'slug' => $this->string()->notNull()->unique(),
             'nomination_id' => $this->integer()->notNull(),
         ]);
+
+        // creates index for column `nomination_id`
+        $this->createIndex(
+            '{{%idx-tournament-nomination_id}}',
+            '{{%tournament}}',
+            'nomination_id'
+        );
+
+        // add foreign key for table `{{%nomination}}`
+        $this->addForeignKey(
+            '{{%fk-tournament-nomination_id}}',
+            '{{%tournament}}',
+            'nomination_id',
+            '{{%nomination}}',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
