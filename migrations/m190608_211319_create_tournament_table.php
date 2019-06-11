@@ -45,6 +45,18 @@ class m190608_211319_create_tournament_table extends Migration
      */
     public function safeDown()
     {
+        // drops foreign key for table `{{%nomination}}`
+        $this->dropForeignKey(
+            '{{%fk-tournament-nomination_id}}',
+            '{{%tournament}}'
+        );
+
+        // drops index for column `nomination_id`
+        $this->dropIndex(
+            '{{%idx-tournament-nomination_id}}',
+            '{{%tournament}}'
+        );
+
         $this->dropTable('{{%tournament}}');
     }
 }
