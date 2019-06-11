@@ -19,8 +19,6 @@ $dropDownListGenderRestriction = Gender::find()->select( [ 'name', 'id' ] )->ind
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'qualifying_scheme_id')->dropDownList( $dropDownListQualifyingScheme ) ?>
 
     <?= $form->field($model, 'encounter_amount')->textInput() ?>
