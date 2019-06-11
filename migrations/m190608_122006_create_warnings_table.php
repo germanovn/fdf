@@ -46,12 +46,12 @@ class m190608_122006_create_warnings_table extends Migration
             'encounter_id'
         );
 
-        // add foreign key for table `{{%participant}}`
+        // add foreign key for table `{{%encounter}}`
         $this->addForeignKey(
             '{{%fk-warnings-encounter_id}}',
             '{{%warnings}}',
             'encounter_id',
-            '{{%participant}}',
+            '{{%encounter}}',
             'id',
             'CASCADE'
         );
