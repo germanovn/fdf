@@ -140,20 +140,4 @@ class Participant extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tournament::className(), ['id' => 'tournament_id'])->viaTable('tournament_participant', ['participant_id' => 'id']);
     }
-
-    /**
-     * Slug
-     * @link https://github.com/zelenin/yii2-slug-behavior
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'slug' => [
-                'class' => 'Zelenin\yii\behaviors\Slug',
-                'slugAttribute' => 'slug',
-                'attribute' => 'name',
-            ]
-        ];
-    }
 }
