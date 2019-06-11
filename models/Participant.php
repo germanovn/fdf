@@ -44,7 +44,7 @@ class Participant extends \yii\db\ActiveRecord
         return [
             [['gender_id', 'club_id', 'echelon_id'], 'required'],
             [['gender_id', 'club_id', 'echelon_id'], 'integer'],
-            [['date_of_birth'], 'safe'],
+            [['date_of_birth'], 'date', 'format' => 'php:Y-m-d'],
             [['surname', 'first_name', 'middle_name'], 'string', 'max' => 255],
             [['club_id'], 'exist', 'skipOnError' => true, 'targetClass' => Club::className(), 'targetAttribute' => ['club_id' => 'id']],
             [['echelon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Echelon::className(), 'targetAttribute' => ['echelon_id' => 'id']],

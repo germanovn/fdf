@@ -29,7 +29,7 @@ $dropDownListEchelon = Echelon::find()->select( [ 'name', 'id' ] )->indexBy( 'id
 
     <?= $form->field($model, 'club_id')->dropDownList( $dropDownListClub ) ?>
 
-    <?= $form->field($model, 'date_of_birth')->textInput() ?>
+    <?= $form->field($model, 'date_of_birth')->textInput( [ 'type' => 'date' ] ) ?>
 
     <?= $form->field($model, 'echelon_id')->dropDownList( $dropDownListEchelon ) ?>
 
