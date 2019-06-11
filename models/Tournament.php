@@ -31,9 +31,9 @@ class Tournament extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug', 'nomination_id'], 'required'],
+            [['name', 'nomination_id'], 'required'],
             [['nomination_id'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['slug'], 'unique'],
         ];
@@ -66,5 +66,21 @@ class Tournament extends \yii\db\ActiveRecord
     public function getParticipants()
     {
         return $this->hasMany(Participant::className(), ['id' => 'participant_id'])->viaTable('tournament_participant', ['tournament_id' => 'id']);
+    }
+
+    /**
+     * Slug
+     * @link https://github.com/zelenin/yii2-slug-behavior
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+            ]
+        ];
     }
 }

@@ -16,13 +16,15 @@ use Yii;
  * @property string $date_of_birth
  * @property int $echelon_id
  *
+ * @property Encounter[] $encounters
+ * @property Encounter[] $encounters0
  * @property Club $club
  * @property Echelon $echelon
  * @property Gender $gender
+ * @property ParticipantNomination[] $participantNominations
+ * @property Nomination[] $nominations
  * @property TournamentParticipant[] $tournamentParticipants
  * @property Tournament[] $tournaments
- * @property Warning[] $warnings
- * @property Warning[] $warnings0
  */
 class Participant extends \yii\db\ActiveRecord
 {
@@ -70,6 +72,22 @@ class Participant extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEncounters()
+    {
+        return $this->hasMany(Encounter::className(), ['blue_participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEncounters0()
+    {
+        return $this->hasMany(Encounter::className(), ['red_participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getClub()
     {
         return $this->hasOne(Club::className(), ['id' => 'club_id']);
@@ -94,6 +112,22 @@ class Participant extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getParticipantNominations()
+    {
+        return $this->hasMany(ParticipantNomination::className(), ['participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNominations()
+    {
+        return $this->hasMany(Nomination::className(), ['id' => 'nomination_id'])->viaTable('participant_nomination', ['participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTournamentParticipants()
     {
         return $this->hasMany(TournamentParticipant::className(), ['participant_id' => 'id']);
@@ -108,18 +142,18 @@ class Participant extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Slug
+     * @link https://github.com/zelenin/yii2-slug-behavior
+     * @return array
      */
-    public function getWarnings()
+    public function behaviors()
     {
-        return $this->hasMany(Warning::className(), ['encounter_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWarnings0()
-    {
-        return $this->hasMany(Warning::className(), ['participant_id' => 'id']);
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+            ]
+        ];
     }
 }
