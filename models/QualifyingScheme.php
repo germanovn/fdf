@@ -29,8 +29,8 @@ class QualifyingScheme extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug'], 'required'],
-            [['name', 'slug'], 'string', 'max' => 255],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['slug'], 'unique'],
         ];
@@ -54,5 +54,21 @@ class QualifyingScheme extends \yii\db\ActiveRecord
     public function getNominations()
     {
         return $this->hasMany(Nomination::className(), ['qualifying_scheme_id' => 'id']);
+    }
+
+    /**
+     * Slug
+     * @link https://github.com/zelenin/yii2-slug-behavior
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+            ]
+        ];
     }
 }

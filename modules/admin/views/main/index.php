@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\City;
 
 /* @var $this yii\web\View */
 ?>
@@ -21,6 +22,12 @@ use yii\grid\GridView;
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         'name',
+        [
+            'attribute' => 'city_id',
+            'filter' => City::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+            'value' => 'city.name',
+        ],
+
     ],
 ]); ?>
 
