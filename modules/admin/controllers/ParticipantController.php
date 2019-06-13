@@ -63,6 +63,7 @@ class ParticipantController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    // TODO: 13.06.2019
     public function actionCreate()
     {
         $model = new Participant();
