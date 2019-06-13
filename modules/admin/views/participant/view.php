@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
-
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Participant */
@@ -54,5 +54,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <p>
+        <?= Html::a(Yii::t('app', 'Add Nomination'), ['nomination/create', 'participant_id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => new \yii\data\ActiveDataProvider( [ 'query' => $model->getNominations() ] ),
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+
+            [
+                'class' => 'yii\grid\ActionColumn'
+            ],
+        ],
+    ]); ?>
 
 </div>
