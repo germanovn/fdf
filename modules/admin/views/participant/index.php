@@ -41,18 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'club_id',
-                'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'filter' => Club::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
                 'value' => 'club.name',
             ],
             [
                 'attribute' => 'echelon_id',
-                'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'filter' => Echelon::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
                 'value' => 'echelon.name',
             ],
-
-            //'club_id',
             //'date_of_birth',
-            //'echelon_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
