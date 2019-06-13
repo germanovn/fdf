@@ -38,7 +38,12 @@ class TournamentController extends Controller
         $searchModel = new TournamentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $tournament = $searchModel->find()->with( [ 'nomination' ] )->asArray()->indexBy( 'id' )->all();
+
+        $tournament = print_r( $tournament, true );
+
         return $this->render('index', [
+            'tournament' => $tournament,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
