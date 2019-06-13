@@ -39,14 +39,15 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t( 'app', 'Admin' ), 'items' => [
-                ['label' => Yii::t( 'app', 'City' ),              'url' => ['/admin/city']],
-                ['label' => Yii::t( 'app', 'Club' ),              'url' => ['/admin/club']],
-                ['label' => Yii::t( 'app', 'Gender' ),            'url' => ['/admin/gender']],
-                ['label' => Yii::t( 'app', 'Echelon' ),           'url' => ['/admin/echelon']],
-                ['label' => Yii::t( 'app', 'Participant' ),       'url' => ['/admin/participant']],
-                ['label' => Yii::t( 'app', 'Qualifying Scheme' ), 'url' => ['/admin/qualifying-scheme']],
-                ['label' => Yii::t( 'app', 'Nomination' ),        'url' => ['/admin/nomination']],
-                ['label' => Yii::t( 'app', 'Tournament' ),        'url' => ['/admin/tournament']],
+                ['label' => Yii::t( 'app', 'City' ),                    'url' => ['/admin/city']],
+                ['label' => Yii::t( 'app', 'Club' ),                    'url' => ['/admin/club']],
+                ['label' => Yii::t( 'app', 'Gender' ),                  'url' => ['/admin/gender']],
+                ['label' => Yii::t( 'app', 'Echelon' ),                 'url' => ['/admin/echelon']],
+                ['label' => Yii::t( 'app', 'Participant' ),             'url' => ['/admin/participant']],
+                ['label' => Yii::t( 'app', 'Qualifying Scheme' ),       'url' => ['/admin/qualifying-scheme']],
+                ['label' => Yii::t( 'app', 'Nomination' ),              'url' => ['/admin/nomination']],
+                ['label' => Yii::t( 'app', 'Participant Nomination' ),  'url' => ['/admin/participant-nomination']],
+                ['label' => Yii::t( 'app', 'Tournament' ),              'url' => ['/admin/tournament']],
             ]],
 
             Yii::$app->user->isGuest ? (
