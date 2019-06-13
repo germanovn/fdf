@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\Gender;
 use app\models\Club;
 use app\models\Echelon;
+use app\models\Nomination;
 use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
@@ -14,6 +15,7 @@ use kartik\date\DatePicker;
 $dropDownListGender  = Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column();
 $dropDownListClub    = Club::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column();
 $dropDownListEchelon = Echelon::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column();
+$dropDownListNomination = Nomination::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column();
 ?>
 
 <div class="participant-form">
@@ -40,6 +42,8 @@ $dropDownListEchelon = Echelon::find()->select( [ 'name', 'id' ] )->indexBy( 'id
     ] ) ?>
 
     <?= $form->field($model, 'echelon_id')->dropDownList( $dropDownListEchelon ) ?>
+
+    <?= $form->field($model, 'nominations')->dropDownList( $dropDownListNomination ) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
