@@ -140,4 +140,12 @@ class Participant extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tournament::className(), ['id' => 'tournament_id'])->viaTable('tournament_participant', ['participant_id' => 'id']);
     }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return sprintf( '%s %s %s', $this->first_name, $this->middle_name, $this->surname );
+    }
 }
