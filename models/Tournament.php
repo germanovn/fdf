@@ -12,7 +12,7 @@ use Yii;
  * @property string $slug
  * @property int $nomination_id
  *
- * @property TournamentParticipant[] $tournamentParticipants
+ * @property Nomination $nomination
  * @property Participant[] $participants
  */
 class Tournament extends \yii\db\ActiveRecord
@@ -31,11 +31,12 @@ class Tournament extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'nomination_id'], 'required'],
+            [['name', 'slug', 'nomination_id'], 'required'],
             [['nomination_id'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'slug'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['slug'], 'unique'],
+            [['nomination_id'], 'exist', 'skipOnError' => true, 'targetClass' => Nomination::className(), 'targetAttribute' => ['nomination_id' => 'id']],
         ];
     }
 
@@ -50,6 +51,14 @@ class Tournament extends \yii\db\ActiveRecord
             'slug' => Yii::t('app', 'Slug'),
             'nomination_id' => Yii::t('app', 'Nomination ID'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNomination()
+    {
+        return $this->hasOne(Nomination::className(), ['id' => 'nomination_id']);
     }
 
     /**
