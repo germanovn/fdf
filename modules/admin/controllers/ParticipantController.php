@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Participant;
 use app\models\ParticipantSearch;
+use app\models\ParticipantNomination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,6 +68,16 @@ class ParticipantController extends Controller
         $model = new Participant();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $ParticipantNomination = new ParticipantNomination();
+
+            $ParticipantNomination->participant_id = $model->id;
+
+            $nomination_id = Yii::$app->request->post()['Participant']['nomination'];
+            $ParticipantNomination->nomination_id = $nomination_id;
+
+            $ParticipantNomination->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
