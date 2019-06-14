@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Add Nomination'), ['nomination/create', 'participant_id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Add Nomination'), ['participant-nomination/create', 'participant_id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -67,7 +67,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
 
             [
-                'class' => 'yii\grid\ActionColumn'
+                'class' => 'yii\grid\ActionColumn',
+//                'controller' => 'participant-nomination',
+                'urlCreator'=>function($action, $model, $key, $index){
+                    $controller = 'participant-nomination';
+                    return sprintf( '/%s/%s?%s',
+                        $controller,
+                        $action,
+                        sprintf( 'participant_id=%d&nomination_id=%d',
+                            Yii::$app->request->get('id'),
+                            $model->id
+                        )
+                    );
+                },
             ],
         ],
     ]); ?>

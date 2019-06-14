@@ -18,7 +18,12 @@ $dropDownListNomination   = Nomination::find()->select( [ 'name', 'id' ] )->inde
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'participant_id')->dropDownList( $dropDownListParticipant ) ?>
+    <?= $form->field($model, 'participant_id')->dropDownList(
+        $dropDownListParticipant,
+        [ 'options' =>
+            [ $model->participant_id => [ 'Selected' => 'selected' ] ]
+        ]
+    ) ?>
 
     <?= $form->field($model, 'nomination_id')->dropDownList( $dropDownListNomination ) ?>
 
