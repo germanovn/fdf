@@ -63,7 +63,6 @@ class ParticipantController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    // TODO: 13.06.2019
     public function actionCreate()
     {
         $model = new Participant();
@@ -74,7 +73,7 @@ class ParticipantController extends Controller
 
             $ParticipantNomination->participant_id = $model->id;
 
-            $nomination_id = Yii::$app->request->post()['Participant']['nomination'];
+            $nomination_id = Yii::$app->request->post()['Participant']['nominations'];
             $ParticipantNomination->nomination_id = $nomination_id;
 
             $ParticipantNomination->save();
