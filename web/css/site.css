@@ -12,6 +12,11 @@ body {
 
 .wrap > .container {
     padding: 70px 15px 20px;
+    overflow: auto;
+}
+
+#p0 {
+    overflow: auto;
 }
 
 .footer {
