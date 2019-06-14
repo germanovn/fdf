@@ -146,6 +146,6 @@ class Participant extends \yii\db\ActiveRecord
      */
     public function getFullName()
     {
-        return sprintf( '%s %s %s', $this->first_name, $this->middle_name, $this->surname );
+        return sprintf( '%s %s %s', $this->surname, $this->first_name, $this->middle_name );
     }
 }
