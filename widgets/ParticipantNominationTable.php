@@ -72,7 +72,7 @@ class ParticipantNominationTable extends \yii\base\Widget
 
     private function rowNominationBlock($column, $topic = ''){
         $controller_action = 'participant-nomination/view';
-        $columns = '';
+        $column_arr = [];
         $i = 1;
         foreach($column as $column_val) {
             $href = sprintf(
@@ -83,13 +83,13 @@ class ParticipantNominationTable extends \yii\base\Widget
             );
             if ( empty( trim($column_val['name']) ) ) $column_val['name'] = sprintf( '<span style="color:red">%s</span>', Yii::t('app', 'No name ;)') );
             $cell = sprintf( '%d. <a href="%s">%s</a>', $i, $href, $column_val['name'] );
-            $columns .= sprintf( '<div class="block-item">%s</div>', $cell );
+            $column_arr[] = sprintf( '<div class="block-item">%s</div>', $cell );
             $i++;
         }
         $html = sprintf(
             '<div class="col-md-4"><div class="wrapper-block"><div class="block-title h3">%s</div>%s</div></div>',
             $topic,
-            $columns
+            implode( '', $column_arr )
         );
         return $html;
     }
