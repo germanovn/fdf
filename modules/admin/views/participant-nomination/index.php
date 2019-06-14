@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use app\widgets\ParticipantNominationTable;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,8 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Participant Nomination'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?= ParticipantNominationTable::widget([
+        'dataProvider' => $dataProvider,
+    ]) ?>
 
-    <?= ListView::widget([
+    <?/* ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => function ($model, $key, $index, $widget) {
@@ -27,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]
             );
         },
-    ]) ?>
-
+    ]) */?>
 
 </div>
