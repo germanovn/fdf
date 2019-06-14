@@ -63,21 +63,24 @@ class ParticipantController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    // TODO: 13.06.2019
     public function actionCreate()
     {
         $model = new Participant();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $ParticipantNomination = new ParticipantNomination();
+            $nominations_arr = Yii::$app->request->post()['Participant']['nominations'];
 
-            $ParticipantNomination->participant_id = $model->id;
+            foreach( $nominations_arr as $nomination_id ) {
 
-            $nomination_id = Yii::$app->request->post()['Participant']['nomination'];
-            $ParticipantNomination->nomination_id = $nomination_id;
+                $ParticipantNomination = new ParticipantNomination();
 
-            $ParticipantNomination->save();
+                $ParticipantNomination->participant_id = $model->id;
+                $ParticipantNomination->nomination_id = $nomination_id;
+
+                $ParticipantNomination->save();
+
+            }
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -99,6 +102,7 @@ class ParticipantController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // TODO: update ParticipantNomination
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

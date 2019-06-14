@@ -6,7 +6,10 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\ParticipantNomination */
 
-$this->title = $model->participant_id;
+$this->title = Yii::t('app', "Participant: {participant-name}. Nomination: {nomination-name}", [
+    'participant-name' => $model->participant->FullName,
+    'nomination-name' => $model->nomination->name,
+]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Participant Nominations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,8 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'participant_id',
-            'nomination_id',
+            [
+                'attribute' => 'participant_id',
+                'value' => $model->participant->FullName,
+
+            ],
+            [
+                'attribute' => 'nomination_id',
+                'value' => $model->nomination->name,
+
+            ],
         ],
     ]) ?>
 

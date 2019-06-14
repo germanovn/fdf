@@ -18,9 +18,14 @@ $dropDownListNomination   = Nomination::find()->select( [ 'name', 'id' ] )->inde
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'participant_id')->dropDownList( $dropDownListParticipant ) ?>
+    <?= $form->field($model, 'participant_id')->dropDownList(
+        $dropDownListParticipant,
+        [ 'options' =>
+            [ $model->participant_id => [ 'Selected' => 'selected' ] ]
+        ]
+    ) ?>
 
-    <?= $form->field($model, 'nomination_id')->dropDownList( $dropDownListNomination ) ?>
+    <?= $form->field($model, 'nomination_id')->dropDownList( $dropDownListNomination, ['prompt' => Yii::t('app', 'Select Nomination...')] ) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

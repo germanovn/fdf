@@ -43,7 +43,9 @@ $dropDownListNomination = Nomination::find()->select( [ 'name', 'id' ] )->indexB
 
     <?= $form->field($model, 'echelon_id')->dropDownList( $dropDownListEchelon ) ?>
 
-    <?= $form->field($model, 'nominations')->dropDownList( $dropDownListNomination ) ?>
+    <?php if ( Yii::$app->controller->action->id == 'create' ) { ?>
+    <?= $form->field($model, 'nominations')->dropDownList( $dropDownListNomination, [ 'multiple' => 'true' ] ) ?>
+    <?php } ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

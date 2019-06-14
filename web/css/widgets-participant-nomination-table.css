@@ -1,0 +1,10 @@
+.wrapper-block {
+    padding: 0 1rem 2rem;
+    color: #000;
+    background-color: #f5f5f5;
+    border: 1px solid #777777;
+    border-radius: .5rem;
+}
+.wrapper-block .block-item {
+    padding-bottom: .5rem;
+}

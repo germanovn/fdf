@@ -21,6 +21,9 @@ use Yii;
  *
  * @property Gender $genderRestriction
  * @property QualifyingScheme $qualifyingScheme
+ * @property ParticipantNomination[] $participantNominations
+ * @property Participant[] $participants
+ * @property Tournament[] $tournaments
  */
 class Nomination extends \yii\db\ActiveRecord
 {
@@ -82,6 +85,30 @@ class Nomination extends \yii\db\ActiveRecord
     public function getQualifyingScheme()
     {
         return $this->hasOne(QualifyingScheme::className(), ['id' => 'qualifying_scheme_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipantNominations()
+    {
+        return $this->hasMany(ParticipantNomination::className(), ['nomination_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipants()
+    {
+        return $this->hasMany(Participant::className(), ['id' => 'participant_id'])->viaTable('participant_nomination', ['nomination_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTournaments()
+    {
+        return $this->hasMany(Tournament::className(), ['nomination_id' => 'id']);
     }
 
     /**

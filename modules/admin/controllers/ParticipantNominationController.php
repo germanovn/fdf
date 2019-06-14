@@ -63,12 +63,16 @@ class ParticipantNominationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate( $participant_id = null )
     {
         $model = new ParticipantNomination();
+        $model->participant_id = $participant_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]);
+            if ( empty( $participant_id ) )
+                return $this->redirect(['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]);
+            else
+                return $this->redirect(['participant/view', 'id' => $model->participant_id]);
         }
 
         return $this->render('create', [
