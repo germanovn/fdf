@@ -9,30 +9,9 @@ use yii\helpers\Html;
  * User: Nick
  * Date: 14.06.2019
  * Time: 15:51
- *
- * Alert widget renders a message from session flash. All flash messages are displayed
- * in the sequence they were assigned using setFlash. You can set message as following:
- *
- * ```php
- * Yii::$app->session->setFlash('error', 'This is the message');
- * Yii::$app->session->setFlash('success', 'This is the message');
- * Yii::$app->session->setFlash('info', 'This is the message');
- * ```
- *
- * Multiple messages could be set as follows:
- *
- * ```php
- * Yii::$app->session->setFlash('error', ['Error 1', 'Error 2']);
- * ```
  */
 class ParticipantNominationTable extends \yii\base\Widget
 {
-    /**
-     * @var array the alert types configuration for the flash messages.
-     * This array is setup as $key => $value, where:
-     * - key: the name of the session flash variable
-     * - value: the bootstrap alert type (i.e. danger, success, info, warning)
-     */
     public $dataProvider;
     public $title = '';
     public $message = '';

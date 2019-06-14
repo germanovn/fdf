@@ -22,15 +22,4 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
     ]) ?>
 
-    <?/* ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(
-                ( sprintf( '<p>%s:</p><p>%s</p>', $model->participant->fullName, $model->nomination->name ) ),
-                ['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]
-            );
-        },
-    ]) */?>
-
 </div>
