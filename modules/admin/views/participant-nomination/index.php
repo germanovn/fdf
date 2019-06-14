@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'itemOptions' => ['class' => 'item'],
         'itemView' => function ($model, $key, $index, $widget) {
             return Html::a(
-                Html::encode( sprintf( '%s: %s', $model->nomination->name, $model->participant->fullName ) ),
+                ( sprintf( '<p>%s:</p><p>%s</p>', $model->participant->fullName, $model->nomination->name ) ),
                 ['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]
             );
         },
