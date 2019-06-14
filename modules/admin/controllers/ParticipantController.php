@@ -69,14 +69,18 @@ class ParticipantController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $ParticipantNomination = new ParticipantNomination();
+            $nominations_arr = Yii::$app->request->post()['Participant']['nominations'];
 
-            $ParticipantNomination->participant_id = $model->id;
+            foreach( $nominations_arr as $nomination_id ) {
 
-            $nomination_id = Yii::$app->request->post()['Participant']['nominations'];
-            $ParticipantNomination->nomination_id = $nomination_id;
+                $ParticipantNomination = new ParticipantNomination();
 
-            $ParticipantNomination->save();
+                $ParticipantNomination->participant_id = $model->id;
+                $ParticipantNomination->nomination_id = $nomination_id;
+
+                $ParticipantNomination->save();
+
+            }
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -98,6 +102,7 @@ class ParticipantController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // TODO: update ParticipantNomination
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
