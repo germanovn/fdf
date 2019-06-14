@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\City;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ClubSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,10 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'slug',
-            'city_id',
+            [
+                'attribute' => 'city_id',
+                'filter' => City::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
+                'value' => 'city.name',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

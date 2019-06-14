@@ -40,7 +40,7 @@ class ClubSearch extends Club
      */
     public function search($params)
     {
-        $query = Club::find();
+        $query = Club::find()->with( [ 'city' ] );
 
         // add conditions that should always apply here
 

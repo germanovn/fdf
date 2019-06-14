@@ -2,11 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Participant */
 
-$this->title = $model->id;
+$this->title = sprintf( '%s %s %s', $model->surname, $model->first_name, $model->middle_name);
+
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Participants'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -33,11 +36,40 @@ $this->params['breadcrumbs'][] = $this->title;
             'surname',
             'first_name',
             'middle_name',
-            'gender_id',
-            'club_id',
+            [
+                'attribute' => 'gender_id',
+                'value' => ArrayHelper::getValue( $model, 'gender.name' ),
+
+            ],
+            [
+                'attribute' => 'club_id',
+                'value' => ArrayHelper::getValue( $model, 'club.name' ),
+
+            ],
             'date_of_birth',
-            'echelon_id',
+            [
+                'attribute' => 'echelon_id',
+                'value' => ArrayHelper::getValue( $model, 'echelon.name' ),
+
+            ],
         ],
     ]) ?>
+
+    <p>
+        <?= Html::a(Yii::t('app', 'Add Nomination'), ['nomination/create', 'participant_id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => new \yii\data\ActiveDataProvider( [ 'query' => $model->getNominations() ] ),
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+
+            [
+                'class' => 'yii\grid\ActionColumn'
+            ],
+        ],
+    ]); ?>
 
 </div>

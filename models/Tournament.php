@@ -12,7 +12,7 @@ use Yii;
  * @property string $slug
  * @property int $nomination_id
  *
- * @property TournamentParticipant[] $tournamentParticipants
+ * @property Nomination $nomination
  * @property Participant[] $participants
  */
 class Tournament extends \yii\db\ActiveRecord
@@ -36,6 +36,7 @@ class Tournament extends \yii\db\ActiveRecord
             [['name', 'slug'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['slug'], 'unique'],
+            [['nomination_id'], 'exist', 'skipOnError' => true, 'targetClass' => Nomination::className(), 'targetAttribute' => ['nomination_id' => 'id']],
         ];
     }
 
@@ -55,6 +56,14 @@ class Tournament extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getNomination()
+    {
+        return $this->hasOne(Nomination::className(), ['id' => 'nomination_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTournamentParticipants()
     {
         return $this->hasMany(TournamentParticipant::className(), ['tournament_id' => 'id']);
@@ -66,5 +75,21 @@ class Tournament extends \yii\db\ActiveRecord
     public function getParticipants()
     {
         return $this->hasMany(Participant::className(), ['id' => 'participant_id'])->viaTable('tournament_participant', ['tournament_id' => 'id']);
+    }
+
+    /**
+     * Slug
+     * @link https://github.com/zelenin/yii2-slug-behavior
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+            ]
+        ];
     }
 }

@@ -40,7 +40,7 @@ class TournamentSearch extends Tournament
      */
     public function search($params)
     {
-        $query = Tournament::find();
+        $query = Tournament::find()->with( [ 'nomination' ] );
 
         // add conditions that should always apply here
 

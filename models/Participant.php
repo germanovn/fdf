@@ -16,13 +16,15 @@ use Yii;
  * @property string $date_of_birth
  * @property int $echelon_id
  *
+ * @property Encounter[] $encounters
+ * @property Encounter[] $encounters0
  * @property Club $club
  * @property Echelon $echelon
  * @property Gender $gender
+ * @property ParticipantNomination[] $participantNominations
+ * @property Nomination[] $nominations
  * @property TournamentParticipant[] $tournamentParticipants
  * @property Tournament[] $tournaments
- * @property Warning[] $warnings
- * @property Warning[] $warnings0
  */
 class Participant extends \yii\db\ActiveRecord
 {
@@ -42,7 +44,7 @@ class Participant extends \yii\db\ActiveRecord
         return [
             [['gender_id', 'club_id', 'echelon_id'], 'required'],
             [['gender_id', 'club_id', 'echelon_id'], 'integer'],
-            [['date_of_birth'], 'safe'],
+            [['date_of_birth'], 'date', 'format' => 'php:Y-m-d'],
             [['surname', 'first_name', 'middle_name'], 'string', 'max' => 255],
             [['club_id'], 'exist', 'skipOnError' => true, 'targetClass' => Club::className(), 'targetAttribute' => ['club_id' => 'id']],
             [['echelon_id'], 'exist', 'skipOnError' => true, 'targetClass' => Echelon::className(), 'targetAttribute' => ['echelon_id' => 'id']],
@@ -65,6 +67,22 @@ class Participant extends \yii\db\ActiveRecord
             'date_of_birth' => Yii::t('app', 'Date Of Birth'),
             'echelon_id' => Yii::t('app', 'Echelon ID'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEncounters()
+    {
+        return $this->hasMany(Encounter::className(), ['blue_participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEncounters0()
+    {
+        return $this->hasMany(Encounter::className(), ['red_participant_id' => 'id']);
     }
 
     /**
@@ -94,6 +112,22 @@ class Participant extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getParticipantNominations()
+    {
+        return $this->hasMany(ParticipantNomination::className(), ['participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNominations()
+    {
+        return $this->hasMany(Nomination::className(), ['id' => 'nomination_id'])->viaTable('participant_nomination', ['participant_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTournamentParticipants()
     {
         return $this->hasMany(TournamentParticipant::className(), ['participant_id' => 'id']);
@@ -108,18 +142,10 @@ class Participant extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return string
      */
-    public function getWarnings()
+    public function getFullName()
     {
-        return $this->hasMany(Warning::className(), ['encounter_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWarnings0()
-    {
-        return $this->hasMany(Warning::className(), ['participant_id' => 'id']);
+        return sprintf( '%s %s %s', $this->first_name, $this->middle_name, $this->surname );
     }
 }

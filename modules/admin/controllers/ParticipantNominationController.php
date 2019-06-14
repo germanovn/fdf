@@ -3,16 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Nomination;
-use app\models\NominationSearch;
+use app\models\ParticipantNomination;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NominationController implements the CRUD actions for Nomination model.
+ * ParticipantNominationController implements the CRUD actions for ParticipantNomination model.
  */
-class NominationController extends Controller
+class ParticipantNominationController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,49 +30,45 @@ class NominationController extends Controller
     }
 
     /**
-     * Lists all Nomination models.
+     * Lists all ParticipantNomination models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NominationSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => ParticipantNomination::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Nomination model.
-     * @param integer $id
+     * Displays a single ParticipantNomination model.
+     * @param integer $participant_id
+     * @param integer $nomination_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($participant_id, $nomination_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($participant_id, $nomination_id),
         ]);
     }
 
     /**
-     * Creates a new Nomination model.
+     * Creates a new ParticipantNomination model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate( $participant_id = null )
+    public function actionCreate()
     {
-        $model = new Nomination();
-//        $model->participant_id = $participant_id;
+        $model = new ParticipantNomination();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if ( empty( $participant_id ) )
-                return $this->redirect(['view', 'id' => $model->id]);
-            else
-                return $this->redirect(['participant/view', 'id' => $participant_id]);
-
+            return $this->redirect(['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]);
         }
 
         return $this->render('create', [
@@ -81,18 +77,19 @@ class NominationController extends Controller
     }
 
     /**
-     * Updates an existing Nomination model.
+     * Updates an existing ParticipantNomination model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $participant_id
+     * @param integer $nomination_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($participant_id, $nomination_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($participant_id, $nomination_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'participant_id' => $model->participant_id, 'nomination_id' => $model->nomination_id]);
         }
 
         return $this->render('update', [
@@ -101,29 +98,31 @@ class NominationController extends Controller
     }
 
     /**
-     * Deletes an existing Nomination model.
+     * Deletes an existing ParticipantNomination model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $participant_id
+     * @param integer $nomination_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($participant_id, $nomination_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($participant_id, $nomination_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Nomination model based on its primary key value.
+     * Finds the ParticipantNomination model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Nomination the loaded model
+     * @param integer $participant_id
+     * @param integer $nomination_id
+     * @return ParticipantNomination the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($participant_id, $nomination_id)
     {
-        if (($model = Nomination::findOne($id)) !== null) {
+        if (($model = ParticipantNomination::findOne(['participant_id' => $participant_id, 'nomination_id' => $nomination_id])) !== null) {
             return $model;
         }
 
