@@ -71,16 +71,17 @@ class ParticipantController extends Controller
 
             $nominations_arr = Yii::$app->request->post()['Participant']['nominations'];
 
-            foreach( $nominations_arr as $nomination_id ) {
+            if ( is_array($nominations_arr) )
+                foreach( $nominations_arr as $nomination_id ) {
 
-                $ParticipantNomination = new ParticipantNomination();
+                    $ParticipantNomination = new ParticipantNomination();
 
-                $ParticipantNomination->participant_id = $model->id;
-                $ParticipantNomination->nomination_id = $nomination_id;
+                    $ParticipantNomination->participant_id = $model->id;
+                    $ParticipantNomination->nomination_id = $nomination_id;
 
-                $ParticipantNomination->save();
+                    $ParticipantNomination->save();
 
-            }
+                }
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
