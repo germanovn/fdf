@@ -45,8 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Gender::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
                 'value' => 'genderRestriction.name',
             ],
-            'age_of',
-            'age_up_to',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

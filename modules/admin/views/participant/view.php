@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Participant */
 
-$this->title = sprintf( '%s %s %s', $model->surname, $model->first_name, $model->middle_name);
+$this->title = $model->fullName;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Participants'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
