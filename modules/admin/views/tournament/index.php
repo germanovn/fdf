@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\widgets\Tournament;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TournamentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,5 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <pre>
     <?= $tournament; ?>
     </pre>
+
+    <?= Tournament::widget([
+        'dataProvider' => $dataProvider,
+    ]) ?>
+
 
 </div>

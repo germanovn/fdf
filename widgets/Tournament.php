@@ -15,14 +15,16 @@ class Tournament extends \yii\base\Widget
     public $dataProvider;
     public $title = '';
     public $message = '';
-    public $options = [];
+    public $options = [
+        'controller_action' => 'participant-nomination/view',
+    ];
 
     public function init()
     {
         parent::init();
         $data_arr = $this->processingData();
-        $message = $this->allNominationBlock($data_arr);
-//        $message = print_r($data_arr, true);
+        $message = $this->buildTable($data_arr);
+//        $message = sprintf( '<pre>%s</pre>', print_r($data_arr, true) );
         $this->message = $message;
     }
     /**
@@ -30,54 +32,65 @@ class Tournament extends \yii\base\Widget
      */
     public function run()
     {
-        $message = sprintf( '<h2>%s</h2><div class="row">%s</div>', $this->title, $this->message );
+        $message = sprintf( '<h2>%s</h2><div class="table">%s</div>', $this->title, $this->message );
         return $message;
     }
 
     private function processingData() {
-        $models = $this->dataProvider->getModels();
-//        $keys = $this->dataProvider->getKeys();
-        $rows = [];
-        foreach (array_values($models) as $index => $model) {
-            $rows[$model->nomination->name][] = [
-                'name' => $model->participant->fullName,
-                'participant_id' => $model->participant_id,
-                'nomination_id' => $model->nomination_id,
-            ];
-        }
+//        $models = $this->dataProvider->getModels();
+////        $keys = $this->dataProvider->getKeys();
+//        $rows = [];
+//        foreach (array_values($models) as $index => $model) {
+//            $rows[$model->nomination->name][] = [
+//                'name' => $model->participant->fullName,
+//                'participant_id' => $model->participant_id,
+//                'nomination_id' => $model->nomination_id,
+//            ];
+//        }
+
+        $rows = [
+            [
+                'name' => '+++',
+                'value' => '123',
+                'test' => '000',
+            ],
+            [
+                'name' => '+++',
+                'value' => '123',
+                'test' => '000',
+            ]
+        ];
 
         return $rows;
     }
 
-    private function rowNominationBlock($column, $topic = ''){
-        $controller_action = 'participant-nomination/view';
-        $column_arr = [];
-        $i = 1;
-        foreach($column as $column_val) {
-            $href = sprintf(
-                '/%s?participant_id=%d&nomination_id=%d',
-                $controller_action,
-                $column_val['participant_id'],
-                $column_val['nomination_id']
-            );
-            if ( empty( trim($column_val['name']) ) ) $column_val['name'] = sprintf( '<span style="color:red">%s</span>', Yii::t('app', 'No name ;)') );
-            $cell = sprintf( '%d. <a href="%s">%s</a>', $i, $href, $column_val['name'] );
-            $column_arr[] = sprintf( '<div class="block-item">%s</div>', $cell );
-            $i++;
-        }
-        $html = sprintf(
-            '<div class="col-md-4"><div class="wrapper-block"><div class="block-title h3">%s</div>%s</div></div>',
-            $topic,
-            implode( '', $column_arr )
-        );
+    private function buildCell($column, $num, $is_head = false ){
+        $cell = sprintf( '%s', $column );
+
+        if($is_head) $html = sprintf( '<th>%s</th>', $cell );
+        else $html = sprintf( '<td>%s</td>', $cell );
+
         return $html;
     }
 
-    private function allNominationBlock($arr, $topic = ''){
-        $html_arr = [];
-        foreach($arr as $titles => $column) {
-            $html_arr[] = $this->rowNominationBlock($column, $titles);
+    private function buildRow($row, $topic = ''){
+        $rows_arr = [];
+        $num = 1;
+        foreach($row as $field_name => $column) {
+            if( $num === 1 ) $rows_arr[] = $this->buildCell($field_name, $num, true);
+            $rows_arr[] = $this->buildCell($column, $num);
+            $num++;
         }
-        return implode( '', $html_arr );
+
+        return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
+    }
+
+    private function buildTable($arr, $topic = ''){
+        $html_arr = [];
+        foreach($arr as $titles => $row) {
+            $html_arr[] = $this->buildRow($row, $titles);
+        }
+        ;
+        return sprintf( '<table>%s</table>', implode( '', $html_arr ) );
     }
 }
