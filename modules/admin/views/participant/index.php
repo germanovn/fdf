@@ -6,6 +6,7 @@ use yii\widgets\Pjax;
 use app\models\Gender;
 use app\models\Echelon;
 use app\models\Club;
+use app\models\Nomination;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ParticipantSearch */
@@ -48,6 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'echelon_id',
                 'filter' => Echelon::find()->select( [ 'name', 'id' ] )->indexBy( 'id' )->column(),
                 'value' => 'echelon.name',
+            ],
+            [
+                'attribute' => 'nominations',
+                'value' => 'nominationsNamesList',
             ],
             //'date_of_birth',
 
