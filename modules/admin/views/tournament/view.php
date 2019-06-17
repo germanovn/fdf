@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use app\widgets\Tournament;
+use app\widgets\TournamentWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tournament */
