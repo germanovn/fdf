@@ -128,6 +128,18 @@ class Participant extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getNominationsNamesList()
+    {
+        $ActiveQuery = $this->hasMany(Nomination::className(), ['id' => 'nomination_id'])->viaTable('participant_nomination', ['participant_id' => 'id']);
+        $NominationsNamesList = [];
+        foreach( $ActiveQuery->all() as $model ) $NominationsNamesList[] = print_r( $model['name'], true );
+//        return implode( ', ', $NominationsNamesList );
+        return implode( ', ', $NominationsNamesList );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTournamentParticipants()
     {
         return $this->hasMany(TournamentParticipant::className(), ['participant_id' => 'id']);
