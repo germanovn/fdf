@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\widgets\Tournament;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tournament */
@@ -32,8 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'slug',
-            'nomination_id',
         ],
+    ]) ?>
+
+    <?= TournamentWidget::widget([
+        'model' => $model,
+        'title' => 'Tournament widget',
     ]) ?>
 
 </div>
