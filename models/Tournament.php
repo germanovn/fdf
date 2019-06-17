@@ -10,10 +10,9 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $slug
- * @property int $nomination_id
  *
- * @property Nomination $nomination
- * @property Participant[] $participants
+ * @property NominationTournament[] $nominationTournaments
+ * @property Nomination[] $nominations
  */
 class Tournament extends \yii\db\ActiveRecord
 {
@@ -31,12 +30,10 @@ class Tournament extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug', 'nomination_id'], 'required'],
-            [['nomination_id'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 255],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['slug'], 'unique'],
-            [['nomination_id'], 'exist', 'skipOnError' => true, 'targetClass' => Nomination::className(), 'targetAttribute' => ['nomination_id' => 'id']],
         ];
     }
 
@@ -49,32 +46,23 @@ class Tournament extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'slug' => Yii::t('app', 'Slug'),
-            'nomination_id' => Yii::t('app', 'Nomination ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNomination()
+    public function getNominationTournaments()
     {
-        return $this->hasOne(Nomination::className(), ['id' => 'nomination_id']);
+        return $this->hasMany(NominationTournament::className(), ['tournament_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTournamentParticipants()
+    public function getNominations()
     {
-        return $this->hasMany(TournamentParticipant::className(), ['tournament_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParticipants()
-    {
-        return $this->hasMany(Participant::className(), ['id' => 'participant_id'])->viaTable('tournament_participant', ['tournament_id' => 'id']);
+        return $this->hasMany(Nomination::className(), ['id' => 'nomination_id'])->viaTable('nomination_tournament', ['tournament_id' => 'id']);
     }
 
     /**
