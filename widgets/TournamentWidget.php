@@ -10,9 +10,9 @@ use yii\helpers\Html;
  * Date: 14.06.2019
  * Time: 19:40
  */
-class Tournament extends \yii\base\Widget
+class TournamentWidget extends \yii\base\Widget
 {
-    public $dataProvider;
+    public $model;
     public $title = '';
     public $message = '';
     public $options = [
@@ -32,34 +32,18 @@ class Tournament extends \yii\base\Widget
      */
     public function run()
     {
-        $message = sprintf( '<h2>%s</h2><div class="table">%s</div>', $this->title, $this->message );
+        $message = sprintf( '<h2>%s</h2><div>%s</div>', $this->title, $this->message );
         return $message;
     }
 
     private function processingData() {
-//        $models = $this->dataProvider->getModels();
-////        $keys = $this->dataProvider->getKeys();
-//        $rows = [];
-//        foreach (array_values($models) as $index => $model) {
-//            $rows[$model->nomination->name][] = [
-//                'name' => $model->participant->fullName,
-//                'participant_id' => $model->participant_id,
-//                'nomination_id' => $model->nomination_id,
+        $model = $this->model;
+        $rows = [];
+//        foreach( $model->nomination->participants as $participant_nodel ) {
+//            $rows[] = [
+//                $model->nomination->name => $participant_nodel->fullName,
 //            ];
 //        }
-
-        $rows = [
-            [
-                'name' => '+++',
-                'value' => '123',
-                'test' => '000',
-            ],
-            [
-                'name' => '+++',
-                'value' => '123',
-                'test' => '000',
-            ]
-        ];
 
         return $rows;
     }
@@ -73,11 +57,19 @@ class Tournament extends \yii\base\Widget
         return $html;
     }
 
-    private function buildRow($row, $topic = ''){
+    private function buildHeadRow($row, $num, $is_head = false ){
         $rows_arr = [];
-        $num = 1;
         foreach($row as $field_name => $column) {
-            if( $num === 1 ) $rows_arr[] = $this->buildCell($field_name, $num, true);
+            $rows_arr[] = $this->buildCell($field_name, $num, true);
+            $num++;
+        }
+
+        return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
+    }
+
+    private function buildRow($row, $num, $is_head = false ){
+        $rows_arr = [];
+        foreach($row as $field_name => $column) {
             $rows_arr[] = $this->buildCell($column, $num);
             $num++;
         }
@@ -85,12 +77,15 @@ class Tournament extends \yii\base\Widget
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
     }
 
-    private function buildTable($arr, $topic = ''){
+    private function buildTable($arr){
         $html_arr = [];
+        $num = 1;
         foreach($arr as $titles => $row) {
-            $html_arr[] = $this->buildRow($row, $titles);
+            if ( $num === 1 ) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $num, $num === 1 ) );
+            $html_arr[] = $this->buildRow( $row, $num );
+            $num++;
         }
-        ;
-        return sprintf( '<table>%s</table>', implode( '', $html_arr ) );
+
+        return sprintf( '<table class="table table-striped table-hover">%s<tbody>%s</tbody></table>', $html_head, implode( '', $html_arr ) );
     }
 }
