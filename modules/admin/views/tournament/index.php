@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-use app\widgets\Tournament;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TournamentSearch */
@@ -20,13 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Tournament'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <pre>
-    <?= $tournament; ?>
-    </pre>
-
-    <?= Tournament::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-    ]) ?>
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
+            'name',
+            [
+                'attribute' => 'nominations',
+                'value' => 'nominationsNamesList',
+            ],
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 </div>
