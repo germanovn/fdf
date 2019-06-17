@@ -48,6 +48,7 @@ AppAsset::register($this);
                 ['label' => Yii::t( 'app', 'Nomination' ),              'url' => ['/admin/nomination']],
                 ['label' => Yii::t( 'app', 'Participant Nomination' ),  'url' => ['/admin/participant-nomination']],
                 ['label' => Yii::t( 'app', 'Tournament' ),              'url' => ['/admin/tournament']],
+                ['label' => Yii::t( 'app', 'Nomination Tournament' ),   'url' => ['/admin/nomination-tournament']],
             ]],
 
             Yii::$app->user->isGuest ? (

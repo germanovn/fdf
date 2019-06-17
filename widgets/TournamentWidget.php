@@ -16,15 +16,15 @@ class TournamentWidget extends \yii\base\Widget
     public $title = '';
     public $message = '';
     public $options = [
-        'controller_action' => 'participant-nomination/view',
+        'controller_action' => 'nomination-tournament/view',
     ];
 
     public function init()
     {
         parent::init();
         $data_arr = $this->processingData();
-        $message = $this->buildTable($data_arr);
-//        $message = sprintf( '<pre>%s</pre>', print_r($data_arr, true) );
+//        $message = $this->buildTable($data_arr);
+        $message = sprintf( '<pre>%s</pre>', print_r($data_arr, true) );
         $this->message = $message;
     }
     /**
@@ -39,11 +39,12 @@ class TournamentWidget extends \yii\base\Widget
     private function processingData() {
         $model = $this->model;
         $rows = [];
-//        foreach( $model->nomination->participants as $participant_nodel ) {
-//            $rows[] = [
-//                $model->nomination->name => $participant_nodel->fullName,
-//            ];
-//        }
+        foreach( $model->nominations as $nominations_model )
+            foreach( $nominations_model->participants as $participant_model ) {
+                $rows[] = [
+                    $nominations_model->name => $participant_model->fullName,
+                ];
+            }
 
         return $rows;
     }
