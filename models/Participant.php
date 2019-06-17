@@ -133,7 +133,6 @@ class Participant extends \yii\db\ActiveRecord
         $ActiveQuery = $this->hasMany(Nomination::className(), ['id' => 'nomination_id'])->viaTable('participant_nomination', ['participant_id' => 'id']);
         $NominationsNamesList = [];
         foreach( $ActiveQuery->all() as $model ) $NominationsNamesList[] = print_r( $model['name'], true );
-//        return implode( ', ', $NominationsNamesList );
         return implode( ', ', $NominationsNamesList );
     }
 
