@@ -17,7 +17,7 @@ class TournamentSearch extends Tournament
     public function rules()
     {
         return [
-            [['id', 'nomination_id'], 'integer'],
+            [['id'], 'integer'],
             [['name', 'slug'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class TournamentSearch extends Tournament
      */
     public function search($params)
     {
-        $query = Tournament::find()->with( [ 'nomination' ] );
+        $query = Tournament::find();
 
         // add conditions that should always apply here
 
@@ -59,7 +59,6 @@ class TournamentSearch extends Tournament
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'nomination_id' => $this->nomination_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
