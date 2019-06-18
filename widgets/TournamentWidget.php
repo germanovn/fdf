@@ -112,7 +112,7 @@ class TournamentWidget extends \yii\base\Widget
                 $num++;
             }
 
-            return sprintf('<table%s>%s%s<tbody>%s</tbody></table>', $table_class, $caption, $html_head, implode('', $html_arr));
+            return sprintf( '<table%s>%s%s<tbody>%s</tbody></table>', $table_class, $caption, $html_head, implode('', $html_arr) );
         }
         else {
             return sprintf( '%s<div class="alert alert-info">%s</div>', $caption, $data );
