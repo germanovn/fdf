@@ -101,6 +101,9 @@ class TournamentWidget extends \yii\base\Widget
         $options = [];
         $html_arr = [];
         $num = 1;
+        $caption = sprintf( '<caption>%s</caption>', $this->caption );
+        $table_class = sprintf( ' class="%s"', $this->options['table_class'] );
+
         if ( is_array( $data ) ) {
             foreach ( $data as $titles => $row ) {
                 $options = [ 'num' => $num ];
@@ -109,13 +112,10 @@ class TournamentWidget extends \yii\base\Widget
                 $num++;
             }
 
-            $table_class = sprintf(' class="%s"', $this->options['table_class']);
-            $caption = sprintf( '<caption>%s</caption>', $this->caption );
-
             return sprintf('<table%s>%s%s<tbody>%s</tbody></table>', $table_class, $caption, $html_head, implode('', $html_arr));
         }
         else {
-            return sprintf( '<div class="alert alert-info">%s</div>', $data );
+            return sprintf( '%s<div class="alert alert-info">%s</div>', $caption, $data );
         }
     }
 }
