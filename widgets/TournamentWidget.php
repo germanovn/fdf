@@ -23,8 +23,9 @@ class TournamentWidget extends \yii\base\Widget
     {
         parent::init();
         $data_arr = $this->processingData();
-//        $message = $this->buildTable($data_arr);
-        $message = sprintf( '<pre>%s</pre>', print_r($data_arr, true) );
+        $message = '';
+//        $message .= sprintf( '<pre>%s</pre>', print_r($data_arr, true) );
+        $message .= $this->buildTable($data_arr);
         $this->message = $message;
     }
     /**
@@ -39,17 +40,27 @@ class TournamentWidget extends \yii\base\Widget
     private function processingData() {
         $model = $this->model;
         $rows = [];
-        foreach( $model->nominations as $nominations_model )
-            foreach( $nominations_model->participants as $participant_model ) {
-                $rows[] = [
-                    $nominations_model->name => $participant_model->fullName,
-                ];
-            }
+        $nominations_names = [];
+        $nominations = $model->nominations;
+
+        // полчуить все номинации
+        foreach( $nominations as $nominations_model ) {
+            $nominations_names[$nominations_model->name] = ' - ';
+        }
+        // создать матрицу номинаций - участников
+        foreach( $nominations as $nominations_model )
+            foreach( $nominations_model->participants as $participant_model )
+                $rows[$participant_model->id] = $nominations_names;
+
+        // заполнить матрицу
+        foreach( $nominations as $index_1 => $nominations_model )
+            foreach( $nominations_model->participants as $index => $participant_model )
+                $rows[$participant_model->id][$nominations_model->name] = $participant_model->fullName;
 
         return $rows;
     }
 
-    private function buildCell($column, $num, $is_head = false ){
+    private function buildCell($column, $options, $is_head = false ){
         $cell = sprintf( '%s', $column );
 
         if($is_head) $html = sprintf( '<th>%s</th>', $cell );
@@ -58,35 +69,37 @@ class TournamentWidget extends \yii\base\Widget
         return $html;
     }
 
-    private function buildHeadRow($row, $num, $is_head = false ){
-        $rows_arr = [];
+    private function buildHeadRow($row, $options, $is_head = false ){
+        $rows_arr[] = $this->buildCell('', $options, true);
         foreach($row as $field_name => $column) {
-            $rows_arr[] = $this->buildCell($field_name, $num, true);
-            $num++;
+            $rows_arr[] = $this->buildCell($field_name, $options, true);
         }
 
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
     }
 
-    private function buildRow($row, $num, $is_head = false ){
-        $rows_arr = [];
+    private function buildRow($row, $options, $is_head = false ){
+        $rows_arr[] = $this->buildCell($options['num'], $options, true);
         foreach($row as $field_name => $column) {
-            $rows_arr[] = $this->buildCell($column, $num);
-            $num++;
+            $rows_arr[] = $this->buildCell($column, $options);
         }
 
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
     }
 
     private function buildTable($arr){
+        $options = [];
         $html_arr = [];
         $num = 1;
         foreach($arr as $titles => $row) {
-            if ( $num === 1 ) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $num, $num === 1 ) );
-            $html_arr[] = $this->buildRow( $row, $num );
+            $options = [ 'num' => $num ];
+            if ( $num === 1 ) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $options, $num === 1 ) );
+            $html_arr[] = $this->buildRow( $row, $options );
             $num++;
         }
 
-        return sprintf( '<table class="table table-striped table-hover">%s<tbody>%s</tbody></table>', $html_head, implode( '', $html_arr ) );
+        $table_class = sprintf( ' class="%s"',  $this->options['table_class'] );
+
+        return sprintf( '<table%s>%s<tbody>%s</tbody></table>', $table_class, $html_head, implode( '', $html_arr ) );
     }
 }

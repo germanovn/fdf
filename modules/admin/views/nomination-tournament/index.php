@@ -22,7 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->nomination_id), ['view', 'nomination_id' => $model->nomination_id, 'tournament_id' => $model->tournament_id]);
+            return Html::a(
+                Html::encode( sprintf( '%s - %s', $model->nomination->name, $model->tournament->name ) ),
+                ['view', 'nomination_id' => $model->nomination_id, 'tournament_id' => $model->tournament_id]);
         },
     ]) ?>
 
