@@ -11,7 +11,7 @@ use app\widgets\TournamentWidget;
 <?php foreach ( $dataProviderTournament->getModels() as $modelTournament ) { ?>
 <?= TournamentWidget::widget([
     'model' => $modelTournament,
-    'title' => sprintf( Yii::t( 'app', 'Tournament grid: %s' ), $modelTournament->name ),
+    'caption' => sprintf( '<h2>%s</h2>', Yii::t( 'app', 'Tournament grid: ' ) . $modelTournament->name ),
     'options' => [
         'table_class' => 'table table-striped table-bordered table-hover'
     ]
@@ -21,6 +21,7 @@ use app\widgets\TournamentWidget;
 <?= GridView::widget([
     'dataProvider' => $dataProviderClub,
     'filterModel' => $searchModelClub,
+    'caption' => sprintf( '<h2>%s</h2>', Yii::t( 'app', 'Clubs' ) ),
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         'name',

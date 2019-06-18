@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= TournamentWidget::widget([
         'model' => $model,
-        'title' => 'Tournament grid',
+        'caption' => sprintf( '<h2>%s</h2>', Yii::t( 'app', 'Tournament grid' ) ),
         'options' => [
             'table_class' => 'table table-striped table-bordered table-hover'
         ]

@@ -13,7 +13,7 @@ use yii\helpers\Html;
 class TournamentWidget extends \yii\base\Widget
 {
     public $model;
-    public $title = '';
+    public $caption = '';
     public $message = '';
     public $options = [
         'controller_action' => 'nomination-tournament/view',
@@ -33,7 +33,7 @@ class TournamentWidget extends \yii\base\Widget
      */
     public function run()
     {
-        $message = sprintf( '<h2>%s</h2><div>%s</div>', $this->title, $this->message );
+        $message = sprintf( '<div>%s</div>', $this->message );
         return $message;
     }
 
@@ -110,8 +110,9 @@ class TournamentWidget extends \yii\base\Widget
             }
 
             $table_class = sprintf(' class="%s"', $this->options['table_class']);
+            $caption = sprintf( '<caption>%s</caption>', $this->caption );
 
-            return sprintf('<table%s>%s<tbody>%s</tbody></table>', $table_class, $html_head, implode('', $html_arr));
+            return sprintf('<table%s>%s%s<tbody>%s</tbody></table>', $table_class, $caption, $html_head, implode('', $html_arr));
         }
         else {
             return sprintf( '<div class="alert alert-info">%s</div>', $data );
