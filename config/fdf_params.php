@@ -8,8 +8,8 @@
 
 return [
     'sex' => [
-        'male'    => 'Male',
-        'female'  => 'Female',
-        'unknown' => 'Unknown',
+        '1' => 'Unknown',
+        '2' => 'Female',
+        '3' => 'Male',
     ]
 ];
