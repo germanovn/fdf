@@ -44,9 +44,9 @@ class TournamentWidget extends \yii\base\Widget
         $nominations = $model->nominations;
 
         // полчуить все номинации
-        foreach( $nominations as $nominations_model ) {
+        foreach( $nominations as $nominations_model )
             $nominations_names[$nominations_model->name] = ' - ';
-        }
+
         // создать матрицу номинаций - участников
         foreach( $nominations as $nominations_model )
             foreach( $nominations_model->participants as $participant_model )
