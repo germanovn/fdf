@@ -2,19 +2,19 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\City;
+use app\widgets\TournamentWidget;
 
 /* @var $this yii\web\View */
 ?>
 <h1><?= Yii::t( 'app', 'Admin panel' ); ?></h1>
 
-<?= GridView::widget([
-    'dataProvider' => $dataProviderCity,
-    'filterModel' => $searchModelCity,
-    'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
-        'name',
-    ],
-]); ?>
+<?= TournamentWidget::widget([
+    'model' => $modelTournament,
+    'title' => 'Tournament grid',
+    'options' => [
+        'table_class' => 'table table-striped table-bordered table-hover'
+    ]
+]) ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProviderClub,
