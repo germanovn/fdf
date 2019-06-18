@@ -60,11 +60,11 @@ class TournamentWidget extends \yii\base\Widget
                         $rows[$participant_model->id][$nominations_model->name] = $participant_model->fullName;
             }
             else {
-                $rows = 'Empty Tournament';
+                $rows = 'Empty Tournament. Please add nominations.';
             }
         }
         else {
-            $rows = 'Not array';
+            $rows = 'Nominations is not array';
         }
 
         return $rows;
