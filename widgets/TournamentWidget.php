@@ -82,7 +82,7 @@ class TournamentWidget extends \yii\base\Widget
     private function buildHeadRow($row, $options, $is_head = false ){
         $rows_arr[] = $this->buildCell('', $options, true);
         foreach($row as $field_name => $column) {
-            $rows_arr[] = $this->buildCell($field_name, $options, true);
+            $rows_arr[] = $this->buildCell($field_name, $options, $is_head);
         }
 
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
@@ -91,7 +91,7 @@ class TournamentWidget extends \yii\base\Widget
     private function buildRow($row, $options, $is_head = false ){
         $rows_arr[] = $this->buildCell($options['num'], $options, true);
         foreach($row as $field_name => $column) {
-            $rows_arr[] = $this->buildCell($column, $options);
+            $rows_arr[] = $this->buildCell($column, $options, $is_head);
         }
 
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
@@ -107,8 +107,8 @@ class TournamentWidget extends \yii\base\Widget
         if ( is_array( $data ) ) {
             foreach ( $data as $titles => $row ) {
                 $options = [ 'num' => $num ];
-                if ($num === 1) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $options, $num === 1 ) );
-                $html_arr[] = $this->buildRow( $row, $options );
+                if ($num === 1) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $options, true ) );
+                $html_arr[] = $this->buildRow( $row, $options, false );
                 $num++;
             }
 
