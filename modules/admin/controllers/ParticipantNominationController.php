@@ -109,11 +109,14 @@ class ParticipantNominationController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($participant_id, $nomination_id)
+    public function actionDelete($participant_id, $nomination_id, $participant_view = null)
     {
         $this->findModel($participant_id, $nomination_id)->delete();
 
-        return $this->redirect(['index']);
+        if ( empty( $participant_view ) )
+            return $this->redirect(['index']);
+        else
+            return $this->redirect(['participant/view', 'id' => $participant_id]);
     }
 
     /**

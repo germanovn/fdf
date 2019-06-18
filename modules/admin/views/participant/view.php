@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return sprintf( '/%s/%s?%s',
                         $controller,
                         $action,
-                        sprintf( 'participant_id=%d&nomination_id=%d',
+                        sprintf( 'participant_id=%d&nomination_id=%d&participant_view=1',
                             Yii::$app->request->get('id'),
                             $model->id
                         )
