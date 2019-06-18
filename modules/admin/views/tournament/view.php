@@ -33,12 +33,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'slug',
+            [
+                'attribute' => 'nominations',
+                'value' => $model->nominationsNamesList,
+
+            ],
         ],
     ]) ?>
 
     <?= TournamentWidget::widget([
         'model' => $model,
-        'title' => 'Tournament widget',
+        'title' => 'Tournament grid',
+        'options' => [
+            'table_class' => 'table table-striped table-bordered table-hover'
+        ]
     ]) ?>
 
 </div>
