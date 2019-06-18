@@ -63,12 +63,16 @@ class NominationTournamentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate( $tournament_id = null )
     {
         $model = new NominationTournament();
+        $model->tournament_id = $tournament_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nomination_id' => $model->nomination_id, 'tournament_id' => $model->tournament_id]);
+            if ( empty( $tournament_id ) )
+                return $this->redirect(['view', 'nomination_id' => $model->nomination_id, 'tournament_id' => $model->tournament_id]);
+            else
+                return $this->redirect(['tournament/view', 'id' => $model->tournament_id]);
         }
 
         return $this->render('create', [

@@ -41,6 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <p>
+        <?= Html::a(Yii::t('app', 'Add Nomination'), ['nomination-tournament/create', 'tournament_id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
+
     <?= TournamentWidget::widget([
         'model' => $model,
         'title' => 'Tournament grid',
