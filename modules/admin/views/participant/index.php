@@ -54,7 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'nominations',
                 'value' => 'nominationsNamesList',
             ],
-            //'date_of_birth',
+            [
+                'attribute' => 'full_years',
+                'value' => 'fullYears',
+            ],
+//            'date_of_birth',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -126,7 +126,7 @@ class Participant extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return string
      */
     public function getNominationsNamesList()
     {
@@ -134,6 +134,16 @@ class Participant extends \yii\db\ActiveRecord
         $NominationsNamesList = [];
         foreach( $ActiveQuery->all() as $model ) $NominationsNamesList[] = print_r( $model['name'], true );
         return implode( ', ', $NominationsNamesList );
+    }
+
+    /**
+     * @return integer
+     */
+    public function getfullYears()
+    {
+        $now = new \DateTime();
+        $diff = $now->diff( new \DateTime( $this->date_of_birth ) );
+        return $diff->y;
     }
 
     /**
