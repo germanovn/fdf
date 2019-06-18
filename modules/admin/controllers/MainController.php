@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\ClubSearch;
 use app\models\Tournament;
+use app\models\TournamentSearch;
 use yii\data\ActiveDataProvider;
 
 class MainController extends \yii\web\Controller
@@ -14,8 +15,12 @@ class MainController extends \yii\web\Controller
         $searchModelClub = new ClubSearch();
         $dataProviderClub = $searchModelClub->search(Yii::$app->request->queryParams);
 
+        $searchModelTournament = new TournamentSearch();
+        $dataProviderTournament = $searchModelTournament->search(Yii::$app->request->queryParams);
+
         return $this->render('index', [
-            'modelTournament' => Tournament::findOne( 2 ),
+            'searchModelTournament' => $searchModelTournament,
+            'dataProviderTournament' => $dataProviderTournament,
 
             'dataProviderClub' => $dataProviderClub,
             'searchModelClub' => $searchModelClub,

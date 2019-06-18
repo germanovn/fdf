@@ -44,18 +44,28 @@ class TournamentWidget extends \yii\base\Widget
         $nominations = $model->nominations;
 
         // полчуить все номинации
-        foreach( $nominations as $nominations_model )
-            $nominations_names[$nominations_model->name] = ' - ';
+        if ( is_array( $nominations ) ) {
+            if ( !empty( $nominations ) ) {
+                foreach ($nominations as $nominations_model)
+                    $nominations_names[$nominations_model->name] = ' - ';
 
-        // создать матрицу номинаций - участников
-        foreach( $nominations as $nominations_model )
-            foreach( $nominations_model->participants as $participant_model )
-                $rows[$participant_model->id] = $nominations_names;
+                // создать матрицу номинаций - участников
+                foreach ($nominations as $nominations_model)
+                    foreach ($nominations_model->participants as $participant_model)
+                        $rows[$participant_model->id] = $nominations_names;
 
-        // заполнить матрицу
-        foreach( $nominations as $index_1 => $nominations_model )
-            foreach( $nominations_model->participants as $index => $participant_model )
-                $rows[$participant_model->id][$nominations_model->name] = $participant_model->fullName;
+                // заполнить матрицу
+                foreach ($nominations as $index_1 => $nominations_model)
+                    foreach ($nominations_model->participants as $index => $participant_model)
+                        $rows[$participant_model->id][$nominations_model->name] = $participant_model->fullName;
+            }
+            else {
+                $rows = 'Empty Tournament';
+            }
+        }
+        else {
+            $rows = 'Not array';
+        }
 
         return $rows;
     }
@@ -87,19 +97,24 @@ class TournamentWidget extends \yii\base\Widget
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
     }
 
-    private function buildTable($arr){
+    private function buildTable($data){
         $options = [];
         $html_arr = [];
         $num = 1;
-        foreach($arr as $titles => $row) {
-            $options = [ 'num' => $num ];
-            if ( $num === 1 ) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $options, $num === 1 ) );
-            $html_arr[] = $this->buildRow( $row, $options );
-            $num++;
+        if ( is_array( $data ) ) {
+            foreach ( $data as $titles => $row ) {
+                $options = [ 'num' => $num ];
+                if ($num === 1) $html_head = sprintf( '<thead>%s</thead>', $this->buildHeadRow( $row, $options, $num === 1 ) );
+                $html_arr[] = $this->buildRow( $row, $options );
+                $num++;
+            }
+
+            $table_class = sprintf(' class="%s"', $this->options['table_class']);
+
+            return sprintf('<table%s>%s<tbody>%s</tbody></table>', $table_class, $html_head, implode('', $html_arr));
         }
-
-        $table_class = sprintf( ' class="%s"',  $this->options['table_class'] );
-
-        return sprintf( '<table%s>%s<tbody>%s</tbody></table>', $table_class, $html_head, implode( '', $html_arr ) );
+        else {
+            return sprintf( '<div class="alert alert-info">%s</div>', $data );
+        }
     }
 }
