@@ -34,7 +34,9 @@ class TournamentWidget extends \yii\base\Widget
      */
     public function run()
     {
-        $message = sprintf( '<div>%s</div>', $this->message );
+        $this->options['class'][] = 'tournament-grid';
+        $class = implode( ' ', $this->options['class'] );
+        $message = sprintf( '<div class="%s">%s</div>', $class, $this->message );
         return $message;
     }
 

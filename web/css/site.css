@@ -10,13 +10,19 @@ body {
     padding: 0 0 60px;
 }
 
+/* mobile fix */
 .wrap > .container {
     padding: 70px 15px 20px;
     overflow: auto;
 }
-
-#p0 {
+.grid-view,
+.css-overflow-auto {
     overflow: auto;
+}
+
+/* module participant-nomination */
+.participant-nomination-index .row>div {
+    margin: 1.5rem 0;
 }
 
 .footer {

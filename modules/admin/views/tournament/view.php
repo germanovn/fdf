@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'caption' => sprintf( '<h2>%s</h2>', Yii::t( 'app', 'Tournament grid' ) ),
         'options' => [
+            'class' => [ 'css-overflow-auto' ],
             'table_class' => 'table table-striped table-bordered table-hover'
         ]
     ]) ?>

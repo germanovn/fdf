@@ -13,6 +13,7 @@ use app\widgets\TournamentWidget;
     'model' => $modelTournament,
     'caption' => sprintf( '<h2>%s</h2>', Yii::t( 'app', 'Tournament grid: ' ) . $modelTournament->name ),
     'options' => [
+        'class' => [ 'css-overflow-auto' ],
         'table_class' => 'table table-striped table-bordered table-hover'
     ]
 ]) ?>
