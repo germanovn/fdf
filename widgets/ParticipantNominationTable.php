@@ -30,7 +30,10 @@ class ParticipantNominationTable extends \yii\base\Widget
      */
     public function run()
     {
-        $message = sprintf( '<h2>%s</h2><div class="row">%s</div>', $this->title, $this->message );
+        if ( empty($this->title) ) $title = '';
+        else $title = sprintf( '<h2>%s</h2>', $this->title );
+
+        $message = sprintf( '%s<div class="row">%s</div>', $title, $this->message );
         return $message;
     }
 
