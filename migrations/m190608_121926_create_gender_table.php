@@ -17,6 +17,12 @@ class m190608_121926_create_gender_table extends Migration
             'name' => $this->string()->notNull()->unique(),
             'slug' => $this->string()->notNull()->unique(),
         ]);
+
+        $this->batchInsert('{{%gender}}', [ 'name', 'slug' ], [
+            [ 'Неизвестный', 'unknown' ],
+            [ 'Мужской', 'male' ],
+            [ 'Женский', 'female' ],
+        ]);
     }
 
     /**
