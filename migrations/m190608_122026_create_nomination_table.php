@@ -63,6 +63,26 @@ class m190608_122026_create_nomination_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $this->batchInsert('', [
+            'name',
+            'slug',
+            'qualifying_scheme_id',
+            'encounter_amount',
+            'participant_amount',
+            'qualifying_rounds_amount',
+            'final_rounds_amount',
+            'gender_restriction',
+            'age_of',
+            'age_up_to',
+        ], [
+            ['Классика база ОКУ 2019', 'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 12, 33],
+            ['Классика ПЛ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 12, 33],
+            ['Классика ТЧ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 12, 33],
+            ['Классика база ОКУ 2019', 'klassika-baza-oku-2019', 1, 7, 5, 3, 3, 12, 33],
+            ['Классика ПЛ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 3, 12, 33],
+            ['Классика ТЧ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 3, 12, 33],
+        ]);
     }
 
     /**
