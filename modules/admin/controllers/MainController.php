@@ -29,31 +29,31 @@ class MainController extends \yii\web\Controller
 
     public function actionFillDb()
     {
-        $City = [
+        $City_data = [
             [ 'name' => 'Екатеринбург' ],
             [ 'name' => 'Челябинск' ],
             [ 'name' => 'Пермь' ],
         ];
 
-        $Club = [
+        $Club_data = [
             [ 'name' => 'NoName' ],
             [ 'name' => 'Club lovers D&D 3.5' ],
             [ 'name' => 'Club lovers D&D 5' ],
         ];
 
-        $Echlon = [
+        $Echlon_data = [
             [ 'name' => 'Базовый' ],
             [ 'name' => 'Первая лига' ],
             [ 'name' => 'Турнир чемпионов' ],
         ];
 
-        $Gender = [
+        $Gender_data = [
             [ 'name' => 'Неизвестный', 'slug' => 'unknown' ],
             [ 'name' => 'Мужской',     'slug' => 'male' ],
             [ 'name' => 'Женский',     'slug' => 'female' ],
         ];
 
-        $Participant = [
+        $Participant_data = [
             [
                 'surname'       => 'Ктотко',
                 'first_name'    => 'Ктото',
@@ -101,10 +101,10 @@ class MainController extends \yii\web\Controller
             ],
         ];
 
-        $Nomination = [
+        $Nomination_data = [
             [
                 'name'                      => 'Классика база ОКУ 2019',
-                'slug'                      => '',
+                'slug'                      => 'klassika-baza-oku-2019',
                 'qualifying_scheme_id'      => '1',
                 'encounter_amount'          => '7',
                 'participant_amount'        => '5',
@@ -116,7 +116,7 @@ class MainController extends \yii\web\Controller
             ],
             [
                 'name'                      => 'Классика лига ОКУ 2019',
-                'slug'                      => '',
+                'slug'                      => 'klassika-liga-oku-2019',
                 'qualifying_scheme_id'      => '2',
                 'encounter_amount'          => '7',
                 'participant_amount'        => '5',
@@ -128,7 +128,7 @@ class MainController extends \yii\web\Controller
             ],
             [
                 'name'                      => 'Классика база ДНД 2019',
-                'slug'                      => '',
+                'slug'                      => 'klassika-baza-dnd-2019',
                 'qualifying_scheme_id'      => '2',
                 'encounter_amount'          => '7',
                 'participant_amount'        => '5',
@@ -140,7 +140,7 @@ class MainController extends \yii\web\Controller
             ],
             [
                 'name'                      => 'Классика лига СОП 2019',
-                'slug'                      => '',
+                'slug'                      => 'klassika-liga-spo-2019',
                 'qualifying_scheme_id'      => '3',
                 'encounter_amount'          => '7',
                 'participant_amount'        => '5',
@@ -152,7 +152,7 @@ class MainController extends \yii\web\Controller
             ],
         ];
 
-        $ParticipantNomination = [
+        $ParticipantNomination_data = [
             [ 'participant_id' => '1', 'nomination_id' => '1' ],
             [ 'participant_id' => '1', 'nomination_id' => '2' ],
             [ 'participant_id' => '2', 'nomination_id' => '1' ],
@@ -165,19 +165,19 @@ class MainController extends \yii\web\Controller
             [ 'participant_id' => '5', 'nomination_id' => '4' ],
         ];
 
-        $QualifyingSchemes = [
+        $QualifyingSchemes_data = [
             [ 'name' => 'Швейцарская система' ],
             [ 'name' => 'круговая система' ],
             [ 'name' => 'олимпийская система' ],
         ];
 
-        $Tournaments = [
+        $Tournaments_data = [
             [ 'name' => 'Первый Турнир 2018' ],
             [ 'name' => 'Второй Турнир 2018' ],
             [ 'name' => 'Первый Турнир 2019' ],
         ];
 
-        $NominationTournaments = [
+        $NominationTournaments_data = [
             [ 'nomination_id' => '1', 'tournaments_id' => '1' ],
             [ 'nomination_id' => '2', 'tournaments_id' => '1' ],
             [ 'nomination_id' => '3', 'tournaments_id' => '1' ],
@@ -185,5 +185,15 @@ class MainController extends \yii\web\Controller
             [ 'nomination_id' => '1', 'tournaments_id' => '3' ],
             [ 'nomination_id' => '3', 'tournaments_id' => '3' ],
         ];
+
+        $Nomination = new \app\models\Nomination;
+
+        foreach ( $Nomination_data as $row ) {
+
+            foreach ( $row as $field_name => $value ) {
+                $Nomination->$field_name = $value;
+            }
+//            $Nomination->insert( true, [ 'name','slug','qualifying_scheme_id','encounter_amount','participant_amount','qualifying_rounds_amount','final_rounds_amount','gender_restriction','age_of','age_up_to']);
+        }
     }
 }
