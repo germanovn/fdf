@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/widgets-participant-nomination-table.css',
+        'css/tournament-widget.css',
     ];
     public $js = [
     ];
