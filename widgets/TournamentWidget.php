@@ -97,7 +97,8 @@ class TournamentWidget extends \yii\base\Widget
         if ( is_array( $column ) ) {
 
 //            if ( is_bool($column['value']) ) $value = $column['value'] ? '+' : '-';
-            if ( is_bool($column['value']) ) $value = Html::checkbox( 'participant-nomination', $column['value'], ['class' => $options[ 'cell_class' ]] );
+//            if ( is_bool($column['value']) ) $value = Html::checkbox( 'participant-nomination', $column['value'], ['class' => $options[ 'cell_class' ]] );
+            if ( is_bool($column['value']) ) $value = Html::a($column['value'] ? '+' : '-', ['/tournament/pjax', 'participant_id' => $column['participant_id']], [ 'class' => $options[ 'cell_class' ] ]);
             else $value = $column['value'];
 
 //            if ( empty($column['link']) )
@@ -105,7 +106,7 @@ class TournamentWidget extends \yii\base\Widget
 //                  Html::a('', ['/example/pjax/pjax-example-6', 'vote' => 'up'], ['class' => 'btn btn-lg btn-warning glyphicon glyphicon-arrow-up'])
 //            $cell = sprintf( '<a href="%s"%s>%s</a>', $column['link'], $cell_class, $value );
 
-            $cell = sprintf( '<label%s>%s</label>', $cell_class, $value );
+            $cell = sprintf( '<div>%s</div>', $value );
 
 //            $cell = $value;
         }

@@ -60,6 +60,21 @@ class TournamentController extends Controller
 
     /**
      * Displays a single Tournament model.
+     * @param integer $participant_id
+     * @param integer $nomination_id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionPjaxView( $participant_id = 0, $nomination_id = 0 )
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($participant_id),
+            'searchModel' => TournamentSearch::findOne($id),
+        ]);
+    }
+
+    /**
+     * Displays a single Tournament model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
