@@ -102,7 +102,7 @@ class TournamentWidget extends \yii\base\Widget
 
 //            if ( empty($column['link']) )
 //                $column['link'] = $cell_link = sprintf( '/participant-nomination/create?nomination_id=%d&participant_id=%d', $column['nomination_id'], $column['participant_id'] );
-//                  <?= Html::a('', ['/example/pjax/pjax-example-6', 'vote' => 'up'], ['class' => 'btn btn-lg btn-warning glyphicon glyphicon-arrow-up']) ?>
+//                  Html::a('', ['/example/pjax/pjax-example-6', 'vote' => 'up'], ['class' => 'btn btn-lg btn-warning glyphicon glyphicon-arrow-up'])
 //            $cell = sprintf( '<a href="%s"%s>%s</a>', $column['link'], $cell_class, $value );
 
             $cell = sprintf( '<label%s>%s</label>', $cell_class, $value );
