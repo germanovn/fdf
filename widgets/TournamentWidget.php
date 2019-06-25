@@ -52,16 +52,21 @@ class TournamentWidget extends \yii\base\Widget
                 foreach ($nominations as $nominations_model)
                     $nominations_names[$nominations_model->name] = [
                         'value' => false,
-                        'link' => '',
+                        'link'  => '',
+                        'nomination_id' => $nominations_model->id
                     ];
 
                 // создать матрицу номинаций - участников
                 foreach ($nominations as $nominations_model)
-                    foreach ($nominations_model->participants as $participant_model) {
-                        $rows[$participant_model->id] = $nominations_names;
+                    foreach ( $nominations_model->participants as $participant_model ) {
+                        foreach ( $nominations_names as $nominations_name_key => $nominations_name_val ) {
+                            $nominations_name_val['participant_id'] = $participant_model->id;
+                            $link_nominations_names[$nominations_name_key] = $nominations_name_val;
+                        }
+                        $rows[$participant_model->id] = $link_nominations_names;
                         $this->participants[$participant_model->id] = [
                             'value' => $participant_model->fullName,
-                            'link' => sprintf( '/participant/view?id=%d', $participant_model->id ),
+                            'link'  => sprintf( '/participant/view?id=%d', $participant_model->id ),
                         ];
                     }
 
@@ -70,7 +75,7 @@ class TournamentWidget extends \yii\base\Widget
                     foreach ($nominations_model->participants as $index => $participant_model)
                         $rows[$participant_model->id][$nominations_model->name] = [
                             'value' => true,
-                            'link' => sprintf( '/participant-nomination/view?participant_id=%d&nomination_id=%d', $participant_model->id, $nominations_model->id ),
+                            'link'  => sprintf( '/participant-nomination/view?nomination_id=%d&participant_id=%d', $nominations_model->id, $participant_model->id ),
                         ];
             }
             else {
@@ -85,19 +90,26 @@ class TournamentWidget extends \yii\base\Widget
     }
 
     private function buildCell($column, $options, $is_head = false ){
+
+        if ( empty($options[ 'cell_class' ]) ) $cell_class = '';
+        else $cell_class = sprintf( ' class="%s"', $options[ 'cell_class' ] );
+
         if ( is_array( $column ) ) {
 
             if ( is_bool($column['value']) ) $value = $column['value'] ? '+' : '-';
             else $value = $column['value'];
 
-            $cell = sprintf( '<a href="%s">%s</a>', $column['link'], $value );
+            if ( empty($column['link']) )
+                $column['link'] = $cell_link = sprintf( '/participant-nomination/create?nomination_id=%d&participant_id=%d', $column['nomination_id'], $column['participant_id'] );
+            $cell = sprintf( '<a href="%s"%s>%s</a>', $column['link'], $cell_class, $value );
         }
-        else $cell = $column;
+        else $cell = sprintf( '<span%s>%s</span>', $cell_class, $column );
 
-        $cell_class = sprintf( ' class="%s"', $options[ 'cell_class' ] );
+//        if($is_head) $html = sprintf( '<th%s>%s</th>', $cell_class, $cell );
+//        else $html = sprintf( '<td%s>%s</td>', $cell_class, $cell );
 
-        if($is_head) $html = sprintf( '<th%s>%s</th>', $cell_class, $cell );
-        else $html = sprintf( '<td%s>%s</td>', $cell_class, $cell );
+        if($is_head) $html = sprintf( '<th>%s</th>', $cell );
+        else $html = sprintf( '<td>%s</td>', $cell );
 
         return $html;
     }
@@ -118,8 +130,8 @@ class TournamentWidget extends \yii\base\Widget
         $rows_arr[] = $this->buildCell( $this->participants[ $options['name_row'] ], $options, true );
 
         foreach($row as $field_name => $column) {
-            if ( $column['value'] ) $rows_arr[] = $this->buildCell($column, [ 'cell_class' => 'info' ], $is_head);
-            else $rows_arr[] = $this->buildCell($column, [ 'cell_class' => 'danger' ], $is_head);
+            if ( $column['value'] ) $rows_arr[] = $this->buildCell($column, [ 'cell_class' => $this->options['true_cell_class'] ], $is_head);
+            else $rows_arr[] = $this->buildCell($column, [ 'cell_class' => $this->options['false_cell_class'] ], $is_head);
         }
 
         return sprintf( '<tr>%s</tr>', implode( '', $rows_arr ) );
@@ -145,7 +157,7 @@ class TournamentWidget extends \yii\base\Widget
             return sprintf( '<table%s>%s%s<tbody>%s</tbody></table>', $table_class, $caption, $html_head, implode('', $html_arr) );
         }
         else {
-            return sprintf( '%s<div class="alert alert-info">%s</div>', $caption, $data );
+            return sprintf( '%s<div class="alert alert-warning">%s</div>', $caption, $data );
         }
     }
 }
