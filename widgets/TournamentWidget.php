@@ -96,12 +96,18 @@ class TournamentWidget extends \yii\base\Widget
 
         if ( is_array( $column ) ) {
 
-            if ( is_bool($column['value']) ) $value = $column['value'] ? '+' : '-';
+//            if ( is_bool($column['value']) ) $value = $column['value'] ? '+' : '-';
+            if ( is_bool($column['value']) ) $value = Html::checkbox( 'participant-nomination', $column['value'], ['class' => $options[ 'cell_class' ]] );
             else $value = $column['value'];
 
-            if ( empty($column['link']) )
-                $column['link'] = $cell_link = sprintf( '/participant-nomination/create?nomination_id=%d&participant_id=%d', $column['nomination_id'], $column['participant_id'] );
-            $cell = sprintf( '<a href="%s"%s>%s</a>', $column['link'], $cell_class, $value );
+//            if ( empty($column['link']) )
+//                $column['link'] = $cell_link = sprintf( '/participant-nomination/create?nomination_id=%d&participant_id=%d', $column['nomination_id'], $column['participant_id'] );
+//                  <?= Html::a('', ['/example/pjax/pjax-example-6', 'vote' => 'up'], ['class' => 'btn btn-lg btn-warning glyphicon glyphicon-arrow-up']) ?>
+//            $cell = sprintf( '<a href="%s"%s>%s</a>', $column['link'], $cell_class, $value );
+
+            $cell = sprintf( '<label%s>%s</label>', $cell_class, $value );
+
+//            $cell = $value;
         }
         else $cell = sprintf( '<span%s>%s</span>', $cell_class, $column );
 

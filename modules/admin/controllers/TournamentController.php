@@ -54,6 +54,21 @@ class TournamentController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => TournamentSearch::findOne($id),
+        ]);
+    }
+
+    /**
+     * Displays a single Tournament model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewAjax($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+            'searchModel' => TournamentSearch::findOne($id),
         ]);
     }
 

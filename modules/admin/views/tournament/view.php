@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\widgets\TournamentWidget;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tournament */
@@ -45,13 +46,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Add Nomination'), ['nomination-tournament/create', 'tournament_id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?php Pjax::begin(['enablePushState' => false]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?= Html::beginForm(['tournament/view-ajax?id=' . Yii::$app->request->get()['id']], 'post', ['data-pjax' => '', 'class' => 'form-inline']); ?>
     <?= TournamentWidget::widget([
-        'model' => $model,
+        'model' => $searchModel,
         'caption' => sprintf( '<h2>%s</h2>', Yii::t( 'app', 'Tournament grid' ) ),
         'options' => [
             'class' => [ 'css-overflow-auto' ],
+            'false_cell_class' => 'btn btn-danger',
+            'true_cell_class'  => 'btn btn-info',
             'table_class' => 'table table-striped table-bordered table-hover'
         ]
     ]) ?>
+    <?= Html::endForm() ?>
+
+    <?php Pjax::end(); ?>
 
 </div>
