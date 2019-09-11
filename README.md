@@ -104,6 +104,8 @@ You can then access the application through the following URL:
 - Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
 - The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
 
+If you use a virtual host, you may have to create a symbolic link:
+ln -s /home/[user]/[domain]/basic/web www
 
 CONFIGURATION
 -------------
