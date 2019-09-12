@@ -107,6 +107,15 @@ You can then access the application through the following URL:
 If you use a virtual host, you may have to create a symbolic link:
 ln -s /home/[user]/[domain]/basic/web www
 
+#### Download
+
+git clone https://github.com/germanovn/fdf /home/[user]/[domain]/fdf
+
+#### Update
+
+cd /home/[user]/[domain]/fdf
+git pull
+
 CONFIGURATION
 -------------
 
