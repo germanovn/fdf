@@ -18,6 +18,15 @@ class m190608_211319_create_tournament_table extends Migration
             'name' => $this->string()->notNull()->unique(),
             'slug' => $this->string()->notNull()->unique(),
         ]);
+
+        $this->batchInsert('tournament', [
+            'name',
+            'slug',
+        ], [
+            ['Первый Турнир', 'pervyj-turnir'],
+            ['Второй Турнир', 'vtoroj-turnir'],
+            ['Третий Турнир', 'tretiy-turnir'],
+        ]);
     }
 
     /**

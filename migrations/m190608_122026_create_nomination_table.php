@@ -64,7 +64,7 @@ class m190608_122026_create_nomination_table extends Migration
             'CASCADE'
         );
 
-        $this->batchInsert('', [
+        $this->batchInsert('nomination', [
             'name',
             'slug',
             'qualifying_scheme_id',
@@ -76,12 +76,12 @@ class m190608_122026_create_nomination_table extends Migration
             'age_of',
             'age_up_to',
         ], [
-            ['Классика база ОКУ 2019', 'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 12, 33],
-            ['Классика ПЛ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 12, 33],
-            ['Классика ТЧ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 12, 33],
-            ['Классика база ОКУ 2019', 'klassika-baza-oku-2019', 1, 7, 5, 3, 3, 12, 33],
-            ['Классика ПЛ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 3, 12, 33],
-            ['Классика ТЧ ОКУ 2019',   'klassika-baza-oku-2019', 1, 7, 5, 3, 3, 12, 33],
+            ['Классика база ОКУ 2019', 'klassika-baza-oku-2019', 1, 7, 5, 3, 2, 1, 12, 33],
+            ['Классика ПЛ ОКУ 2019',   'klassika-pl-oku-2019',   1, 7, 5, 3, 2, 1, 12, 33],
+            ['Классика ТЧ ОКУ 2019',   'klassika-tch-oku-2019',  1, 7, 5, 3, 2, 1, 12, 33],
+            ['Классика база ОКУ 2020', 'klassika-baza-oku-2020', 1, 7, 5, 3, 3, 1, 12, 33],
+            ['Классика ПЛ ОКУ 2020',   'klassika-pl-oku-2020',   1, 7, 5, 3, 3, 1, 12, 33],
+            ['Классика ТЧ ОКУ 2020',   'klassika-tch-oku-2020',  1, 7, 5, 3, 3, 1, 12, 33],
         ]);
     }
 

@@ -17,6 +17,15 @@ class m190608_121934_create_echelon_table extends Migration
             'name' => $this->string()->notNull()->unique(),
             'slug' => $this->string()->notNull()->unique(),
         ]);
+
+        $this->batchInsert('echelon', [
+            'name',
+            'slug',
+        ], [
+            ['Базовый',          'bazovyj'],
+            ['Первая лига',      'pervaa-liga'],
+            ['Турнир чемпионов', 'turnir-cempionov'],
+        ]);
     }
 
     /**
