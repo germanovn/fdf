@@ -38,6 +38,16 @@ class m190606_045012_create_club_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $this->batchInsert('club', [
+            'name',
+            'slug',
+            'city_id',
+        ], [
+            ['No Name',    'no-name',    '1'],
+            ['Club Test',  'club-test',  '2'],
+            ['D&D lovers', 'd-d-lovers', '3'],
+        ]);
     }
 
     /**

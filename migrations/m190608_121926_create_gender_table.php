@@ -20,8 +20,8 @@ class m190608_121926_create_gender_table extends Migration
 
         $this->batchInsert('{{%gender}}', [ 'name', 'slug' ], [
             [ 'Неизвестный', 'unknown' ],
-            [ 'Мужской', 'male' ],
-            [ 'Женский', 'female' ],
+            [ 'Мужской',     'male' ],
+            [ 'Женский',     'female' ],
         ]);
     }
 

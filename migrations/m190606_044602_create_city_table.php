@@ -17,6 +17,15 @@ class m190606_044602_create_city_table extends Migration
             'name' => $this->string()->notNull()->unique(),
             'slug' => $this->string()->notNull()->unique(),
         ]);
+
+        $this->batchInsert('city', [
+            'name',
+            'slug',
+        ], [
+            ['Екатеринбург', 'ekaterinburg'],
+            ['Челябинск',    'celabinsk'],
+            ['Перьмь',       'perm'],
+        ]);
     }
 
     /**
